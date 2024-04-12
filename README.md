@@ -3,8 +3,8 @@ Mod expanding on UI Enhancer mod for Carrier Command 2 to increase the resolutio
 This mod also includes Captain Controls by Mr Scoot.
 
 ##Source Mods
-UI Enhancer Mod is by Quantx and others and is on GIT (httpsgithub.comQuantxCC2-UI-Enhancer) and can be download through Steam Workshop httpssteamcommunity.comsharedfilesfiledetailsid=2761300794
-Captain Controls is by Mr Scoot and others and can be downloaded throguh Steam Workshop httpssteamcommunity.comsharedfilesfiledetailsid=2824746567
+UI Enhancer Mod is by Quantx and others and is on [GITHUB](httpsgithub.comQuantxCC2-UI-Enhancer) and can be download through the [Steam Workshop](https://steamcommunity.comsharedfilesfiledetailsid=2761300794)
+Captain Controls is by Mr Scoot and others and can be downloaded through the [Steam Workshop](https://steamcommunity.comsharedfilesfiledetailsid=2824746567)
 
 ##High Resolution Changes
 This Mod makes the following further changes to UI Enhancer
