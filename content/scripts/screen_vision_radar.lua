@@ -105,7 +105,7 @@ function update(screen_w, screen_h, ticks)
 
         local angle = g_animation_time / 90 * math.pi * 2
         local radar_dir = vec2(math.cos(angle), math.sin(angle))
-        update_ui_line(0, 0, radar_dir:x() * radius, radar_dir:y() * radius, color_white)
+        update_ui_line(0, 0, radar_dir:x() * radius, radar_dir:y() * radius, radar_col(128))
 
         local targets = get_radar_targets(range)
         local angle_fade_dist = 0.15
