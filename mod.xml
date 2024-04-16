@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data name="Higher Resolution Combined + UIE + Captain Controls" author="Nexus_314" description="This mod combines the effects of Higher Resolution Navigation (by Nexus_314),  Higher Resolution Radar (by Nexus_314), UI Enhancer (by QunatX) and Captain Controls (by Mr Scoot).
+
+[h2]Source Mods[/h2]
+
+UI Enhancer (by QunatX):
+Provides improvements to all screens on the carrier. 
+UI Enhancer Mod is by Quantx and others and is on https://github.com/Quantx/CC2-UI-Enhancer and can be download through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2761300794.
+Version 
+
+Captain Controls (by Mr Scoot):
+Adds a loadout and vehicle control screens to the captains chair arm rests and converts the transmission terminal into a control screen.
+Captain Controls is by Mr Scoot and others and can be downloaded through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2824746567.
+Version 17/03/2024
+
+
+[h2]Higher Resolution Changes:[/h2]
+
+This Mod makes the following further changes:
+
+[b]Navigation Screens[/b]
+[list]
+[*]Increases resolution of the three lower helm screens (increase from 128 x 128 to 256 x 256, they now match the resolution of the vehicle control screens)
+[*]Changes the start up display of the main helm screens
+[*]The Centre Screen now defaults to display ocean current and sets zoom level to match the left screen to give a better overview of the map
+[*]Right Screen now defaults to display ocean depth and sets zoom level to match the left screen to give a better overview of the map
+[/list]
+
+[b]Radar Screen[/b]
+[list]
+[*]Increases the resolution of the ship's radar screen (increase from 128 x 128 to 256 x 256, it now matches the resolution of the vehicle control screens)
+[*]Adds ID number of detected aircraft and ships (green)
+[*]Adds direction heading (white line) to aircarft and ships (white)
+[*]Change ship heading line to white and sweep line to green
+[*]Adds 15deg tick marks around the perimeter of the radar circle 
+[/list]
+">
+</data>
