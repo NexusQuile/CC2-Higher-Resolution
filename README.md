@@ -1,13 +1,13 @@
-# CC2 UI Enhancer Higher Resolution
-Mod expanding on UI Enhancer mod for Carrier Command 2 to increase the resolution of bridge screens and provide further improvements.
+# CC2 Higher Resolution UI Enhancer
+Mod expanding on UI Enhancer mod for Carrier Command 2 to increase the resolution of bridge screens and provide further UI improvements.
 This mod also includes Captain Controls by Mr Scoot.
 
-##Source Mods
-UI Enhancer Mod is by Quantx and others and is on https://github.com/Quantx/CC2-UI-Enhancer and can be download through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2761300794.
+## Source Mods
+This mod includes the following mods:
+- UI Enhancer Mod is by Quantx and others and is on https://github.com/Quantx/CC2-UI-Enhancer and can be download through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2761300794.
+- Captain Controls is by Mr Scoot and others and can be downloaded through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2824746567.
 
-Captain Controls is by Mr Scoot and others and can be downloaded through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2824746567.
-
-##High Resolution Changes
+## Higher Resolution Changes
 This Mod makes the following further changes to UI Enhancer
 - Navigation Screens
   - increases resolution of the three lower helm screens (increase from 128 x 128 to 256 x 256, they now match the resolution of the vehicle control screens)
@@ -20,3 +20,6 @@ This Mod makes the following further changes to UI Enhancer
   - adds direction heading (white line) to aircarft and ships (white)
   - change ship heading line to white and sweep line to green
   - adds 15deg tick marks around the perimeter of the radar circle 
+
+![combined](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/7dfb1764-10cf-4998-9835-23ae132486f1)
+![comparison](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/237a0710-a3dc-4768-af16-9ab27025e0ab)
