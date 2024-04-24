@@ -3064,7 +3064,7 @@
 		<screen name="screen_veh_top_l" display_name_loc="667" script_file_name="scripts/screen_ship_log.lua" body_index="0" seat_index="3" type="3" refresh_interval="2.00000000e+00" help_tag="ship_log_screen_log">
 			<transform m00="3.09086161e-08" m01="-3.09086197e-08" m02="-1.00000000e+00" m10="-7.07106709e-01" m11="-7.07106650e-01" m12="0.00000000e+00" m20="-7.07106709e-01" m21="7.07106769e-01" m22="-4.37113883e-08" tx="-2.35124187e+01" ty="3.13289280e+01" tz="-2.69034252e+01"/>
 		</screen>
-		<screen name="screen_veh_top_r" display_name_loc="720" script_file_name="scripts/screen_cctv.lua" body_index="0" seat_index="0" type="0" refresh_interval="2.00000000e+00" help_tag="cctv_screen">
+		<screen name="screen_veh_top_r" display_name_loc="720" script_file_name="scripts/screen_cctv.lua" body_index="0" seat_index="0" type="3" refresh_interval="2.00000000e+00" help_tag="cctv_screen">
 			<transform m00="3.09086161e-08" m01="-3.09086197e-08" m02="-1.00000000e+00" m10="-7.07106709e-01" m11="-7.07106650e-01" m12="0.00000000e+00" m20="-7.07106709e-01" m21="7.07106769e-01" m22="-4.37113883e-08" tx="-2.35106392e+01" ty="3.13277817e+01" tz="-2.90520782e+01"/>
 		</screen>
 		<screen name="screen_inv_r" display_name_loc="668" script_file_name="scripts/screen_vehicle_loadout.lua" body_index="0" seat_index="6" type="0" refresh_interval="4.00000000e+00" help_tag="veh_load_screen_loadout">
