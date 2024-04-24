@@ -19,7 +19,12 @@ This Mod makes the following further changes to UI Enhancer
   - adds ID number of detected aircraft and ships (green)
   - adds direction heading (white line) to aircarft and ships (white)
   - change ship heading line to white and sweep line to green
-  - adds 15deg tick marks around the perimeter of the radar circle 
+  - adds 15deg tick marks around the perimeter of the radar circle
+- CCTV
+  - increases the resolution of the ship's CCTV screen (increase from 128 x 128 to 256 x 256, it now matches the resolution of the vehicle control screens)
+  - CCTV camera will now show the view of aircraft being held on deck (rather than default back to showing the hanger)
+  - CCTV camera will now show a banner when aircraft is being held on deck
+  - CCTV camera will now stay with a launching vehicle and not cycle between land and air views in auto mode. Note view will only show the vehicle with the highest ID which is launching. This is WIP.
 
 ![combined](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/7dfb1764-10cf-4998-9835-23ae132486f1)
 ![comparison](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/237a0710-a3dc-4768-af16-9ab27025e0ab)
