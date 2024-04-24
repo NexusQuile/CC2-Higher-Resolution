@@ -181,6 +181,8 @@ g_is_render_grid = true
 g_map_window_scroll = 0
 g_selected_bay_index = -1
 
+g_show_waypoint_ids = 0
+
 g_blend_tick = 0
 g_prev_pos_x = 0
 g_prev_pos_y = 0
@@ -419,7 +421,7 @@ function render_selection_vehicle(screen_w, screen_h, vehicle)
                         g_viewing_vehicle_id = vehicle:get_id()
                         g_screen_index = 1
                     end
-                end
+				end
                 
                 local dock_state = vehicle:get_dock_state()
                 local is_self_destruct = dock_state == e_vehicle_dock_state.undocked or dock_state == e_vehicle_dock_state.dock_queue or dock_state == e_vehicle_dock_state.docking
@@ -907,6 +909,15 @@ function render_selection_map(screen_w, screen_h)
         g_is_carrier_waypoint = ui:checkbox("SHOW CARRIER WAYPOINTS", g_is_carrier_waypoint)
         g_is_pip_enable = ui:checkbox("ENABLE CCTV FEED", g_is_pip_enable)
         g_is_render_grid = ui:checkbox("SHOW GRID", g_is_render_grid)
+		
+		--ui:divider()
+		
+		ui:header("Show Vehicle ID on Waypoints")
+		local waypoint_id_options = { 0, 1, 2 }
+        local selected = ui:button_group({ "None", "Last", "All" }, true)
+		if selected ~= -1 then 
+			g_show_waypoint_ids = selected
+		end
 
         ui:spacer(5)
 
@@ -1008,6 +1019,7 @@ function parse()
     g_is_render_grid = parse_bool("is_show_grid", g_is_render_grid)
     g_map_window_scroll = parse_f32("", g_map_window_scroll)
     g_selected_bay_index = parse_s32("", g_selected_bay_index)
+	g_show_waypoint_ids = parse_s32("", g_show_waypoint_ids)
 end
 
 function begin()
@@ -1209,7 +1221,7 @@ function update(screen_w, screen_h, ticks)
 
                                             if waypoint_distance_to_cursor < highlighted_distance_best and waypoint_distance_to_cursor < 8 then
                                                 g_highlighted:set_vehicle_waypoint(vehicle:get_id(), waypoint:get_id())
-                                                highlighted_distance_best = waypoint_distance_to_cursor
+                                                highlighted_distance_best = waypoint_distance_to_cursor												
                                             end
                                         end
                                     end
@@ -1446,7 +1458,7 @@ function update(screen_w, screen_h, ticks)
             end
         elseif g_highlighted.vehicle_id > 0 and g_highlighted.waypoint_id == 0 then
             local weapon_radius_vehicle = update_get_map_vehicle_by_id(g_highlighted.vehicle_id)
-
+			
             if weapon_radius_vehicle:get() then
                 local def = weapon_radius_vehicle:get_definition_index()
 
@@ -1694,7 +1706,10 @@ function update(screen_w, screen_h, ticks)
                                             end
                                         end
                                     end
-
+									
+									repeat_index = vehicle:get_waypoint(waypoint_count - 1):get_repeat_index()
+									
+									
                                     for j = 0, waypoint_count - 1, 1 do
                                         local waypoint = vehicle:get_waypoint(j)
                                         local waypoint_pos = waypoint:get_position_xz()
@@ -1707,16 +1722,26 @@ function update(screen_w, screen_h, ticks)
                                         waypoint_pos_x_prev = waypoint_screen_pos_x
                                         waypoint_pos_y_prev = waypoint_screen_pos_y
 
+										-- get index of where waypoint loop back to
                                         local waypoint_repeat_index = waypoint:get_repeat_index()
+										
+										-- if waypoints loop (i.e. not -1), and waypoint is in the looping path then draw path and loop icon 
+										if repeat_index >= 0 and j >= repeat_index then
+											if j == repeat_index then
+												loop_index = waypoint_count - 1
+											else
+												loop_index = j-1
+											end
+											-- if first point in loop draw line and icon to last way point, else draw to previous waypoint
+											
+											local waypoint_repeat = vehicle:get_waypoint(loop_index)
+											local waypoint_repeat_pos = waypoint_repeat:get_position_xz()
 
-                                        if waypoint_repeat_index >= 0 then
-                                            local waypoint_repeat = vehicle:get_waypoint(waypoint_repeat_index)
-                                            local waypoint_repeat_pos = waypoint_repeat:get_position_xz()
+											local repeat_screen_pos_x, repeat_screen_pos_y = get_screen_from_world(waypoint_repeat_pos:x(), waypoint_repeat_pos:y(), g_camera_pos_x, g_camera_pos_y, g_camera_size, screen_w, screen_h)
 
-                                            local repeat_screen_pos_x, repeat_screen_pos_y = get_screen_from_world(waypoint_repeat_pos:x(), waypoint_repeat_pos:y(), g_camera_pos_x, g_camera_pos_y, g_camera_size, screen_w, screen_h)
+											update_ui_line(waypoint_screen_pos_x, waypoint_screen_pos_y, repeat_screen_pos_x, repeat_screen_pos_y, waypoint_color)
+											update_ui_image((waypoint_screen_pos_x + repeat_screen_pos_x) / 2 - 4, (waypoint_screen_pos_y + repeat_screen_pos_y) / 2 - 4, atlas_icons.map_icon_loop, waypoint_color, 0)											
 
-                                            update_ui_line(waypoint_screen_pos_x, waypoint_screen_pos_y, repeat_screen_pos_x, repeat_screen_pos_y, waypoint_color)
-                                            update_ui_image((waypoint_screen_pos_x + repeat_screen_pos_x) / 2 - 4, (waypoint_screen_pos_y + repeat_screen_pos_y) / 2 - 4, atlas_icons.map_icon_loop, waypoint_color, 0)
                                         end
 
                                         local attack_target_count = waypoint:get_attack_target_count()
@@ -1792,7 +1817,14 @@ function update(screen_w, screen_h, ticks)
                                         end
 
                                         update_ui_image(waypoint_screen_pos_x - 4, waypoint_screen_pos_y - 4, atlas_icons.map_icon_waypoint, waypoint_color, 0)
-
+										
+										--show IDs on waypoints based on setting, don't show ID on a waypoint which are docking
+										if g_show_waypoint_ids == 2 and vehicle:get_waypoint(j):get_type() ~= e_waypoint_type.dock then
+											update_ui_text(waypoint_screen_pos_x - 64, waypoint_screen_pos_y - 13, vehicle:get_id(), 128, 1, waypoint_color, 0)
+										elseif g_show_waypoint_ids == 1 and j == waypoint_count -1 and vehicle:get_waypoint(j):get_type() ~= e_waypoint_type.dock then
+											update_ui_text(waypoint_screen_pos_x - 64, waypoint_screen_pos_y - 13, vehicle:get_id(), 128, 1, waypoint_color, 0)
+										end
+											
                                         if is_deploy then
                                             update_ui_image(waypoint_screen_pos_x - 4, waypoint_screen_pos_y - 11, atlas_icons.icon_deploy_vehicle, waypoint_color, 0)
                                         elseif is_group then
@@ -2155,7 +2187,19 @@ function update(screen_w, screen_h, ticks)
 
             if highlighted_vehicle:get() then
                 local vehicle_definition_index = highlighted_vehicle:get_definition_index()
+				
+				if screen_vehicle:get_team() == highlighted_vehicle:get_team() and vehicle_definition_index ~= e_game_object_type.chassis_carrier and vehicle_definition_index ~= e_game_object_type.chassis_sea_barge then
+					local ui = g_ui
+				
+					local loadout_w = 74
+					local left_w = screen_w - loadout_w - 25
 
+					local window = ui:begin_window(update_get_loc(e_loc.upp_loadout), 10 + left_w + 5, 10, loadout_w, 84, atlas_icons.column_stock, false, 2)
+						local region_w, region_h = ui:get_region()
+						window.cy = region_h / 2 - 32
+						imgui_vehicle_chassis_loadout(ui, highlighted_vehicle)
+					ui:end_window()
+				end
                 if g_highlighted.waypoint_id > 0 then
                     -- render waypoint tooltip
                     local highlighted_waypoint = highlighted_vehicle:get_waypoint_by_id(g_highlighted.waypoint_id)
@@ -2180,6 +2224,19 @@ function update(screen_w, screen_h, ticks)
             local highlighted_vehicle = update_get_map_vehicle_by_id(g_highlighted.vehicle_id)
 
             if highlighted_vehicle:get() then
+				if screen_vehicle:get_team() == highlighted_vehicle:get_team() then
+					local ui = g_ui
+				
+					local loadout_w = 74
+					local left_w = screen_w - loadout_w - 25
+
+					local window = ui:begin_window(update_get_loc(e_loc.upp_loadout), 10 + left_w + 5, 10, loadout_w, 84, atlas_icons.column_stock, false, 2)
+						local region_w, region_h = ui:get_region()
+						window.cy = region_h / 2 - 32
+						imgui_vehicle_chassis_loadout(ui, highlighted_vehicle)
+					ui:end_window()
+				end
+			
                 if get_is_vehicle_air(highlighted_vehicle:get_definition_index()) then
                     local waypoint = highlighted_vehicle:get_waypoint_by_id(g_highlighted.waypoint_id)
 
