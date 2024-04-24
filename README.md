@@ -30,5 +30,22 @@ This Mod makes the following further changes to UI Enhancer
   - added option to show vehicle ID on waypoints of firendly vehicles - options are None, Last Waypoint or All Waypoints. Waypoint does not shown ID when it is a dock command on a carrier
   - load of vehicles (land, air, Needlefish and Swordfish) now shown in top right when hovering over the unit or a waypoint
 
+
+## Example Images
+
+### Nav Screen Comparison
 ![combined](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/7dfb1764-10cf-4998-9835-23ae132486f1)
+
+### Radar Comparison
 ![comparison](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/237a0710-a3dc-4768-af16-9ab27025e0ab)
+
+### Looping Icon
+![Looping](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/22baaaf8-e458-4fb8-a15e-eb3b6e9615cb)
+
+### Waypoint showing Vehicle IDs
+![WaypointIdMenu](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/19b15e72-5864-463a-982b-e924a6eb5a0e)
+![WaypointIdLast](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/6dc7e0b2-eb44-498d-8dc8-1176bbfa5931)
+![WaypointIdAll](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/690a5f39-0306-4882-a578-43cd591917b1)
+
+### Loadout shown on hover
+![LoadoutonHover](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/40055d13-057f-4018-8ed5-c94b89357cd1)
