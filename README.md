@@ -49,3 +49,6 @@ This Mod makes the following further changes to UI Enhancer
 
 ### Loadout shown on hover
 ![LoadoutonHover](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/40055d13-057f-4018-8ed5-c94b89357cd1)
+
+### Higher Resolution CCTV screen showing view from aircraft on hold
+![CCTV_HoldDeck](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/2eaa569b-e959-42e2-8a06-8cf3a998ba11)
