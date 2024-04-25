@@ -182,6 +182,8 @@ g_map_window_scroll = 0
 g_selected_bay_index = -1
 
 g_show_waypoint_ids = 0
+g_show_loadouts_ids = 0
+g_show_loop_icon = 0
 
 g_blend_tick = 0
 g_prev_pos_x = 0
@@ -913,12 +915,21 @@ function render_selection_map(screen_w, screen_h)
 		--ui:divider()
 		
 		ui:header("Show Vehicle ID on Waypoints")
-		local waypoint_id_options = { 0, 1, 2 }
-        local selected = ui:button_group({ "None", "Last", "All" }, true)
-		if selected ~= -1 then 
-			g_show_waypoint_ids = selected
+        local waypoint_id_selection = ui:button_group({ "None", "Last", "All" }, true)
+		if waypoint_id_selection ~= -1 then 
+			g_show_waypoint_ids = waypoint_id_selection
 		end
-
+		ui:header("Show Loop Icon on Waypoint links")
+        local loop_icon_selection = ui:button_group({ "Last" , "All" }, true)
+		if loop_icon_selection ~= -1 then 
+			g_show_loop_icon = loop_icon_selection
+			print(g_show_loop_icon)
+		end
+		ui:header("Show Vehicle Loadout")
+        local vehicle_loadout_selection = ui:button_group({ "Selected" , "Hover" , "Waypoints" }, true)
+		if vehicle_loadout_selection ~= -1 then 
+			g_show_loadouts_ids = vehicle_loadout_selection
+		end
         ui:spacer(5)
 
     ui:end_window()
@@ -1740,7 +1751,12 @@ function update(screen_w, screen_h, ticks)
 											local repeat_screen_pos_x, repeat_screen_pos_y = get_screen_from_world(waypoint_repeat_pos:x(), waypoint_repeat_pos:y(), g_camera_pos_x, g_camera_pos_y, g_camera_size, screen_w, screen_h)
 
 											update_ui_line(waypoint_screen_pos_x, waypoint_screen_pos_y, repeat_screen_pos_x, repeat_screen_pos_y, waypoint_color)
-											update_ui_image((waypoint_screen_pos_x + repeat_screen_pos_x) / 2 - 4, (waypoint_screen_pos_y + repeat_screen_pos_y) / 2 - 4, atlas_icons.map_icon_loop, waypoint_color, 0)											
+											
+											if g_show_loop_icon == 1 then
+												update_ui_image((waypoint_screen_pos_x + repeat_screen_pos_x) / 2 - 4, (waypoint_screen_pos_y + repeat_screen_pos_y) / 2 - 4, atlas_icons.map_icon_loop, waypoint_color, 0)													
+											elseif g_show_loop_icon == 0 and j == waypoint_count-1 then
+												update_ui_image((waypoint_screen_pos_x + repeat_screen_pos_x) / 2 - 4, (waypoint_screen_pos_y + repeat_screen_pos_y) / 2 - 4, atlas_icons.map_icon_loop, waypoint_color, 0)											
+											end
 
                                         end
 
@@ -2188,7 +2204,7 @@ function update(screen_w, screen_h, ticks)
             if highlighted_vehicle:get() then
                 local vehicle_definition_index = highlighted_vehicle:get_definition_index()
 				
-				if screen_vehicle:get_team() == highlighted_vehicle:get_team() and vehicle_definition_index ~= e_game_object_type.chassis_carrier and vehicle_definition_index ~= e_game_object_type.chassis_sea_barge then
+				if (g_show_loadouts_ids == 1 or g_show_loadouts_ids == 2) and screen_vehicle:get_team() == highlighted_vehicle:get_team() and vehicle_definition_index ~= e_game_object_type.chassis_carrier and vehicle_definition_index ~= e_game_object_type.chassis_sea_barge then
 					local ui = g_ui
 				
 					local loadout_w = 74
@@ -2224,7 +2240,7 @@ function update(screen_w, screen_h, ticks)
             local highlighted_vehicle = update_get_map_vehicle_by_id(g_highlighted.vehicle_id)
 
             if highlighted_vehicle:get() then
-				if screen_vehicle:get_team() == highlighted_vehicle:get_team() then
+				if (g_show_loadouts_ids == 2) and screen_vehicle:get_team() == highlighted_vehicle:get_team() then
 					local ui = g_ui
 				
 					local loadout_w = 74
