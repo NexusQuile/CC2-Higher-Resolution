@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data name="Higher Resolution Combined + UIE + Captain Controls" author="Nexus_314" description="This mod combines the effects of Higher Resolution Navigation (by Nexus_314),  Higher Resolution Radar (by Nexus_314), UI Enhancer (by QunatX) and Captain Controls (by Mr Scoot) and other further improvements to the control screens by Nexus_314.
+<data name="Higher Resolution UI Enhancer (+ Captain Controls)" author="Nexus_314" description="This mod combines the effects of Higher Resolution Navigation (by Nexus_314),  Higher Resolution Radar (by Nexus_314), UI Enhancer (by QunatX), Captain Controls (by Mr Scoot) and other further improvements by Nexus_314.
 
 [h2]Source Mods[/h2]
 
@@ -45,9 +45,9 @@ This Mod makes the following further changes:
 
 [b]Control Screens[/b]
 [list]
-[*]looping icon is now shown on all the waypoint links that are in the loop - not just the last
-[*]added option to show vehicle ID on waypoints of firendly vehicles - options are None, Last Waypoint or All Waypoints. Waypoint does not shown ID when it is a dock command on a carrier
-[*] loadout of vehicles (land, air, Needlefish and Swordfish) now shown in top right when hovering over the unit or a waypoint
+[*]added option to show vehicle ID on waypoints of firendly vehicles - options are None, Last Waypoint or All Waypoints. Waypoint does not shown ID when it is a dock command on a carrier. This can be set per control screen. Default beahviour as per base game of showing None.
+[*] added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. Default beahviour as per base game of showing Last link only. 
+[*] added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint). This can be set per control screen. Default beahviour as per base game of showing the loadout only when the unit is Selected.
 [/list]
 ">
 </data>
