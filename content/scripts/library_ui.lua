@@ -2771,13 +2771,14 @@ function get_ui_vehicle_chassis_attachments(vehicle)
     elseif vehicle_definition_index == e_game_object_type.chassis_air_wing_light then
         vehicle_attachment_rows = {
             {
-                { i=1, x=0, y=-22 }
+                { i=1, x=0, y=-23 }
             },
             {
                 { i=2, x=-26, y=0 },
                 { i=4, x=-14, y=0 },
-                { i=5, x=14, y=0 },
-                { i=3, x=26, y=0 }
+				{ i=6, x=0,   y=1 },				  
+                { i=5, x=14,  y=0 },
+                { i=3, x=26,  y=0 }
             }
         }
 
@@ -2788,14 +2789,14 @@ function get_ui_vehicle_chassis_attachments(vehicle)
             },
             {
                 { i=2, x=-26, y=0 },
-                { i=4, x=-14, y=0 },
-                { i=6, x=0, y=4 },
-                { i=5, x=14, y=0 },
-                { i=3, x=26, y=0 }
+                { i=4, x=-13, y=0 },
+                { i=6, x=0,   y=0 },
+                { i=5, x=13,  y=0 },
+                { i=3, x=26,  y=0 }
             },
             {
-                { i=7, x=-14, y=20 },
-                { i=8, x=14, y=20 }
+                { i=7, x=-13, y=20 },
+                { i=8, x=13,  y=20 }
             }
         }
     elseif vehicle_definition_index == e_game_object_type.chassis_air_rotor_light then
