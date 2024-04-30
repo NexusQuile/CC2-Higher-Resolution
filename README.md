@@ -1,11 +1,12 @@
 # CC2 Higher Resolution UI Enhancer
 Mod expanding on UI Enhancer mod for Carrier Command 2 to increase the resolution of bridge screens and provide further UI improvements.
-This mod also includes Captain Controls by Mr Scoot.
+This mod also includes Captain Controls by Mr Scoot and Albatross AWACS by Thumblegudget.
 
 ## Source Mods
 This mod includes the following mods:
 - UI Enhancer Mod is by Quantx and others and is on https://github.com/Quantx/CC2-UI-Enhancer and can be download through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2761300794.
 - Captain Controls is by Mr Scoot and others and can be downloaded through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2824746567.
+- Albatross AWACS is by Thumblegudget and can be downloaded through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2891723169
 
 ## Higher Resolution Changes
 This Mod makes the following further changes to UI Enhancer
