@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data name="Higher Resolution UI Enhancer" author="Nexus_314" description="This mod combines the effects of Higher Resolution Navigation (by Nexus_314),  Higher Resolution Radar (by Nexus_314), UI Enhancer (by QunatX), Captain Controls (by Mr Scoot), Albatross AWACS by Thumblegudget and other further improvements by Nexus_314.
+<data name="Higher Resolution UI Enhancer" author="Nexus_314" description="This mod combines the effects of Higher Resolution Navigation,  Higher Resolution Radar, UI Enhancer, Captain Controls, Albatross AWACS and other further improvements.
 
 Current Version: 2.0
+
+https://github.com/NexusQuile/CC2-Higher-Resolution
 
 [h2]Source Mods[/h2]
 
 [b]UI Enhancer (by QunatX)[/b]
-Provides improvements to all screens on the carrier. 
-UI Enhancer Mod is by Quantx and others and is on https://github.com/Quantx/CC2-UI-Enhancer and can be download through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2761300794.
+https://github.com/Quantx/CC2-UI-Enhancer
+Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2761300794.
 Version 2024/03/18 (GitHub)
 
 [b]Captain Controls (by Mr Scoot)[/b]
-Adds a loadout and vehicle control screens to the captains chair arm rests and converts the transmission terminal into a control screen.
-Captain Controls is by Mr Scoot and others and can be downloaded through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2824746567.
-Version 2024/03/17
+Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2824746567.
+Version 2024/03/17 (Steam)
 
 [b]Albatross AWACS (by Thumblegudget)[/b]
-Places the AWACS frisbee on top of the Albatross, rather than underneath the Manta.
-Albatross AWACS is by Thumblegudget and can be downloaded through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2891723169
-Version v2 2024/03/11
+Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2891723169
+Version v2 2024/03/11 (Steam)
 
 [h2]Higher Resolution Changes:[/h2]
 
@@ -26,7 +26,7 @@ This Mod makes the following further changes:
 
 [b]Navigation Screens[/b]
 [list]
-[*]Increases resolution of the three lower helm screens (increase from 128 x 128 to 256 x 256, they now match the resolution of the vehicle control screens)
+[*]Increases resolution of the three lower helm screens
 [*]Changes the start up display of the main helm screens
 [*]The Centre Screen now defaults to display ocean current and sets zoom level to match the left screen to give a better overview of the map
 [*]Right Screen now defaults to display ocean depth and sets zoom level to match the left screen to give a better overview of the map
@@ -34,7 +34,7 @@ This Mod makes the following further changes:
 
 [b]Radar Screen[/b]
 [list]
-[*]Increases the resolution of the ship's radar screen (increase from 128 x 128 to 256 x 256, it now matches the resolution of the vehicle control screens)
+[*]Increases the resolution of the ship's radar screen
 [*]Adds ID number of detected aircraft and ships (green)
 [*]Adds direction heading (white line) to aircarft and ships (white)
 [*]Change ship heading line to white and sweep line to green
@@ -43,24 +43,18 @@ This Mod makes the following further changes:
 
 [b]CCTV[/b]
 [list]
-[*]increases the resolution of the ship's CCTV screen (increase from 128 x 128 to 256 x 256, it now matches the resolution of the vehicle control screens)
+[*]increases the resolution of the ship's CCTV screen
 [*]CCTV camera will now show the view of aircraft being held on deck (rather than default back to showing the hanger)
 [*]CCTV camera will now show a banner when the aircraft being shown is being held on deck
-[*]CCTV camera will now stay with a launching vehicle and not cycle between land and air views in auto mode. Note view will only show the vehicle with the highest ID which is launching. Fixing this base game bug is WIP.
+[*]CCTV camera will now stay with a launching vehicle and not cycle between land and air views in auto mode.
 [/list]
 
 [b]Control Screens[/b]
 [list]
-[*]added option to show vehicle ID on waypoints of firendly vehicles - options are None, Last Waypoint or All Waypoints. Waypoint does not shown ID when it is a dock command on a carrier. This can be set per control screen. Default beahviour as per base game of showing None.
-[*] added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. Default beahviour as per base game of showing Last link only. 
-[*] added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint). This can be set per control screen. Default beahviour as per base game of showing the loadout only when the unit is Selected.
+[*]added option to show vehicle ID on waypoints of firendly vehicles. Waypoint does not shown ID when it is a dock command on a carrier.
+[*] added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. 
+[*] added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint).
 [/list]
-
-
-Change Log
-v2.0 - Added Albatross AWACS mod.
-v1.1 - Added option to show friendly vehicle IDs on waypoints and option to show friendly vehicle loadout on hover of the vehicle or its waypoint on the control screens. Incrased CCTV screen resolution and enabled showing of aircraft being held on deck.
-v1.0 - Initial version merging UI Enhancer, Captain Controls, Higher Resolution Navigation Screens and Higher Resolution Radar mods.
 
 ">
 </data>
