@@ -1718,7 +1718,7 @@ function update(screen_w, screen_h, ticks)
                                         end
                                     end
 									
-									repeat_index = vehicle:get_waypoint(waypoint_count - 1):get_repeat_index()
+									local repeat_index = vehicle:get_waypoint(waypoint_count - 1):get_repeat_index()
 									
 									
                                     for j = 0, waypoint_count - 1, 1 do
