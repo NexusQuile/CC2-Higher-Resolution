@@ -414,13 +414,10 @@ function render_vehicle_list( win_list, is_air )
                     vehicle_state_color = color_status_warning
                 else
                     --check last waypoint to see if it repeats
-  
-                        if waypoint:get_repeat_index(waypoint_count - 1) >= 0 then
-                            vehicle_state_string = "LOOP"
-                            vehicle_state_description = "Following Waypoint Loop"
-                            vehicle_state_color = color8(0, 30, 230, 255)
-                            break
-                        end
+                    if waypoint:get_repeat_index(waypoint_count - 1) >= 0 then
+                        vehicle_state_string = "LOOP"
+                        vehicle_state_description = "Following Waypoint Loop"
+                        vehicle_state_color = color8(0, 30, 230, 255)
                     end
                 end
             
