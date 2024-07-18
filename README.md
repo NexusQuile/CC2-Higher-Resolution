@@ -2,7 +2,7 @@
 Mod expanding on UI Enhancer mod for Carrier Command 2 to increase the resolution of bridge screens and provide further UI improvements.
 This mod also includes Captain Controls by Mr Scoot and Albatross AWACS by Thumblegudget.
 
-Current Version: 2.0
+Current Version: 2.2
 
 ## Source Mods
 This mod includes the following mods:
@@ -25,9 +25,11 @@ This Mod makes the following further changes to UI Enhancer
   - adds 15deg tick marks around the perimeter of the radar circle
 - CCTV
   - increases the resolution of the ship's CCTV screen (increase from 128 x 128 to 256 x 256, it now matches the resolution of the vehicle control screens)
-  - CCTV camera will now show the view of aircraft being held on deck (rather than default back to showing the hanger)
-  - CCTV camera will now show a banner when the aircraft being shown is being held on deck
-  - CCTV camera will now stay with a launching vehicle and not cycle between land and air views in auto mode. Note view will only show the vehicle with the highest ID which is launching. Fixing this base game bug is WIP.
+  - camera will now show the view of aircraft being held on deck (rather than default back to showing the hanger)
+  - camera will now show a banner when the aircraft being shown is being held on deck
+  - camera will now stay with a launching vehicle and not cycle between land and air views in auto mode.
+  - camera will now follow aircraft  that are also taxi-ing back to the hanger
+  - if more than one unit is docking/undocking/taxi-ing camera will now show unit with the greatest relative altitude (not the most forward on the carrier).
 - Control Screens
    - added option to show vehicle ID on waypoints of firendly vehicles - options are None, Last Waypoint or All Waypoints. Waypoint does not shown ID when it is a dock command on a carrier. This can be set per control screen. Default beahviour as per base game of showing None.
    - added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. Default beahviour as per base game of showing Last link only. 
@@ -60,6 +62,8 @@ This Mod makes the following further changes to UI Enhancer
 
 
 ## Change Log
+v2.2 - Bug fix to landing script
+v2.1 - Added CCTV following taxi-ing aircraft and follow unit with highest relative alitude
 v2.0 - Added Albatross AWACS mod.
 v1.1 - Added option to show friendly vehicle IDs on waypoints and option to show friendly vehicle loadout on hover of the vehicle or its waypoint on the control screens. Incrased CCTV screen resolution and enabled showing of aircraft being held on deck.
 v1.0 - Initial version merging UI Enhancer, Captain Controls, Higher Resolution Navigation Screens and Higher Resolution Radar mods.
