@@ -63,8 +63,13 @@ This Mod makes the following further changes to UI Enhancer
 
 ## Change Log
 v2.3 - Update to menu items for waypoints to change settings by arrow rather than using butttons
+
 v2.2 - Bug fix to landing script
+
 v2.1 - Added CCTV following taxi-ing aircraft and follow unit with highest relative alitude
+
 v2.0 - Added Albatross AWACS mod.
+
 v1.1 - Added option to show friendly vehicle IDs on waypoints and option to show friendly vehicle loadout on hover of the vehicle or its waypoint on the control screens. Incrased CCTV screen resolution and enabled showing of aircraft being held on deck.
+
 v1.0 - Initial version merging UI Enhancer, Captain Controls, Higher Resolution Navigation Screens and Higher Resolution Radar mods.
