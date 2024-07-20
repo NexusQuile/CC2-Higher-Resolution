@@ -2,7 +2,7 @@
 Mod expanding on UI Enhancer mod for Carrier Command 2 to increase the resolution of bridge screens and provide further UI improvements.
 This mod also includes Captain Controls by Mr Scoot and Albatross AWACS by Thumblegudget.
 
-Current Version: 2.2
+Current Version: 2.3
 
 ## Source Mods
 This mod includes the following mods:
@@ -62,6 +62,7 @@ This Mod makes the following further changes to UI Enhancer
 
 
 ## Change Log
+v2.3 - Update to menu items for waypoints to change settings by arrow rather than using butttons
 v2.2 - Bug fix to landing script
 v2.1 - Added CCTV following taxi-ing aircraft and follow unit with highest relative alitude
 v2.0 - Added Albatross AWACS mod.

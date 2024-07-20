@@ -912,21 +912,20 @@ function render_selection_map(screen_w, screen_h)
         g_is_pip_enable = ui:checkbox("ENABLE CCTV FEED", g_is_pip_enable)
         g_is_render_grid = ui:checkbox("SHOW GRID", g_is_render_grid)
 		
-		--ui:divider()
-		
-		ui:header("Show Vehicle ID on Waypoints")
-        local waypoint_id_selection = ui:button_group({ "None", "Last", "All" }, true)
+		ui:divider()
+				
+        local waypoint_id_selection = ui:combo("Show Vehicle ID on Waypoints",g_show_waypoint_ids, { "None", "Last", "All" })
 		if waypoint_id_selection ~= -1 then 
 			g_show_waypoint_ids = waypoint_id_selection
 		end
-		ui:header("Show Loop Icon on Waypoint links")
-        local loop_icon_selection = ui:button_group({ "Last" , "All" }, true)
+		
+		local loop_icon_selection = ui:combo("Show Loop Icon on Waypoint links",g_show_loop_icon, { "Last", "All" })
 		if loop_icon_selection ~= -1 then 
 			g_show_loop_icon = loop_icon_selection
 			print(g_show_loop_icon)
 		end
-		ui:header("Show Vehicle Loadout")
-        local vehicle_loadout_selection = ui:button_group({ "Selected" , "Hover" , "Waypoints" }, true)
+		
+        local vehicle_loadout_selection = ui:combo("Show Vehicle Loadout",g_show_loadouts_ids, { "Selected" , "Hover" , "Waypoints" })
 		if vehicle_loadout_selection ~= -1 then 
 			g_show_loadouts_ids = vehicle_loadout_selection
 		end
