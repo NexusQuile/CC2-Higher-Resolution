@@ -45,7 +45,7 @@ This Mod makes the following further changes to UI Enhancer
 ![comparison](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/237a0710-a3dc-4768-af16-9ab27025e0ab)
 
 ### Command Screen Changes
-![WaypointIdMenu](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/99aad86e-b7f3-4781-926d-d1413de2987c)
+![WaypointIdMenu-new](https://github.com/user-attachments/assets/4935907a-a0d5-4448-b6ed-a8731314de03)
 
 #### Waypoints showing Vehicle IDs
 ![WaypointIdLast](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/6dc7e0b2-eb44-498d-8dc8-1176bbfa5931)
