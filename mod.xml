@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data name="Higher Resolution UI Enhancer" author="Nexus_314" description="This mod combines the effects of Higher Resolution Navigation,  Higher Resolution Radar, UI Enhancer, Captain Controls, Albatross AWACS and other further improvements.
 
-Current Version: 2.3
+Current Version: 2.4
 
 https://github.com/NexusQuile/CC2-Higher-Resolution
 
@@ -52,8 +52,13 @@ This Mod makes the following further changes:
 [b]Control Screens[/b]
 [list]
 [*]added option to show vehicle ID on waypoints of firendly vehicles. Waypoint does not shown ID when it is a dock command on a carrier.
-[*] added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. 
-[*] added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint).
+[*]added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. 
+[*]added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint).
+[/list]
+
+[b]Hud[/b]
+[list]
+[*]Artifical horizon lines now display the pitch angle (except horizon).
 [/list]
 
 ">
