@@ -62,6 +62,9 @@ This Mod makes the following further changes to UI Enhancer
 ### Higher Resolution CCTV screen showing view from aircraft on hold
 ![CCTV_HoldDeck](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/2eaa569b-e959-42e2-8a06-8cf3a998ba11)
 
+#### HUD
+![HUD_comparison](https://github.com/user-attachments/assets/f074ed1b-4ad4-4176-a07a-1ef290144b81)
+
 
 ## Change Log
 v2.4 - Hud's artifical horizon lines now display pitch angle
