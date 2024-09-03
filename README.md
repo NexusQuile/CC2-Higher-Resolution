@@ -2,7 +2,7 @@
 Mod expanding on UI Enhancer mod for Carrier Command 2 to increase the resolution of bridge screens and provide further UI improvements.
 This mod also includes Captain Controls by Mr Scoot and Albatross AWACS by Thumblegudget.
 
-Current Version: 2.3
+Current Version: 2.4
 
 ## Source Mods
 This mod includes the following mods:
@@ -34,6 +34,8 @@ This Mod makes the following further changes to UI Enhancer
    - added option to show vehicle ID on waypoints of firendly vehicles - options are None, Last Waypoint or All Waypoints. Waypoint does not shown ID when it is a dock command on a carrier. This can be set per control screen. Default beahviour as per base game of showing None.
    - added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. Default beahviour as per base game of showing Last link only. 
    - added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint). This can be set per control screen. Default beahviour as per base game of showing the loadout only when the unit is Selected.
+- HUD
+   - artifical horizon lines now show the pitch angle (exludes horizon).
 
 
 ## Example Images
@@ -62,6 +64,8 @@ This Mod makes the following further changes to UI Enhancer
 
 
 ## Change Log
+v2.4 - Hud's artifical horizon lines now display pitch angle
+
 v2.3 - Update to menu items for waypoints to change settings by arrow rather than using butttons
 
 v2.2 - Bug fix to landing script
