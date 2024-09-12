@@ -12,6 +12,8 @@ This mod includes the following mods:
 
 ## Higher Resolution Changes
 This Mod makes the following further changes to UI Enhancer
+- HUD
+   - artifical horizon lines now show the pitch angle (exludes horizon).
 - Navigation Screens
   - increases resolution of the three lower helm screens (increase from 128 x 128 to 256 x 256, they now match the resolution of the vehicle control screens)
   - changes the start up display of the main helm screens
@@ -34,11 +36,12 @@ This Mod makes the following further changes to UI Enhancer
    - added option to show vehicle ID on waypoints of firendly vehicles - options are None, Last Waypoint or All Waypoints. Waypoint does not shown ID when it is a dock command on a carrier. This can be set per control screen. Default beahviour as per base game of showing None.
    - added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. Default beahviour as per base game of showing Last link only. 
    - added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint). This can be set per control screen. Default beahviour as per base game of showing the loadout only when the unit is Selected.
-- HUD
-   - artifical horizon lines now show the pitch angle (exludes horizon).
+
 
 
 ## Example Images
+#### HUD
+![HUD_comparison](https://github.com/user-attachments/assets/69bdaa00-36ec-4211-8881-f59f26a41791)
 
 ### Nav Screen Comparison
 ![combined](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/7dfb1764-10cf-4998-9835-23ae132486f1)
@@ -61,9 +64,6 @@ This Mod makes the following further changes to UI Enhancer
 
 ### Higher Resolution CCTV screen showing view from aircraft on hold
 ![CCTV_HoldDeck](https://github.com/NexusQuile/CC2-Higher-Resolution/assets/104992166/2eaa569b-e959-42e2-8a06-8cf3a998ba11)
-
-#### HUD
-![HUD_comparison](https://github.com/user-attachments/assets/f074ed1b-4ad4-4176-a07a-1ef290144b81)
 
 
 ## Change Log
