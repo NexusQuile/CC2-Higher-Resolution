@@ -184,6 +184,7 @@ g_selected_bay_index = -1
 g_show_waypoint_ids = 0
 g_show_loadouts_ids = 0
 g_show_loop_icon = 0
+g_show_waypoint_time = 0
 
 g_blend_tick = 0
 g_prev_pos_x = 0
@@ -235,6 +236,20 @@ g_tut_is_context_menu_open = false
 g_tut_undocking_vehicle_id = 0
 g_tut_selected_vehicle_id = 0
 g_tut_selected_waypoint_id = 0
+
+function disp_time(timeval)
+    local minutes = math.floor(timeval/60)
+    remaining = timeval % 60
+    local seconds = math.floor(remaining)
+    if (minutes < 10) then
+      minutes = "0" .. tostring(minutes)
+    end
+    if (seconds < 10) then
+      seconds = "0" .. tostring(seconds)
+    end
+    local answer = tostring(minutes..':'..seconds)
+    return answer
+end
 
 function ui_render_selection_carrier_vehicle_overview(x, y, w, h, carrier_vehicle)
     update_ui_rectangle(0, 0, 256, 256, color8(0, 0, 0, 128))
@@ -929,6 +944,12 @@ function render_selection_map(screen_w, screen_h)
 		if vehicle_loadout_selection ~= -1 then 
 			g_show_loadouts_ids = vehicle_loadout_selection
 		end
+		
+		local waypoint_time_selection = ui:combo("Show Arrival Times",g_show_waypoint_time, { "None" , "Last" , "All" })
+		if waypoint_time_selection ~= -1 then 
+			g_show_waypoint_time = waypoint_time_selection
+		end
+		
         ui:spacer(5)
 
     ui:end_window()
@@ -1030,6 +1051,7 @@ function parse()
     g_map_window_scroll = parse_f32("", g_map_window_scroll)
     g_selected_bay_index = parse_s32("", g_selected_bay_index)
 	g_show_waypoint_ids = parse_s32("", g_show_waypoint_ids)
+	g_show_waypoint_time = parse_s32("", g_show_waypoint_time)
 end
 
 function begin()
@@ -1833,13 +1855,68 @@ function update(screen_w, screen_h, ticks)
 
                                         update_ui_image(waypoint_screen_pos_x - 4, waypoint_screen_pos_y - 4, atlas_icons.map_icon_waypoint, waypoint_color, 0)
 										
-										--show IDs on waypoints based on setting, don't show ID on a waypoint which are docking
+										--show IDs on waypoints based on setting, don't show ID on a waypoint which is docking
 										if g_show_waypoint_ids == 2 and vehicle:get_waypoint(j):get_type() ~= e_waypoint_type.dock then
-											update_ui_text(waypoint_screen_pos_x - 64, waypoint_screen_pos_y - 13, vehicle:get_id(), 128, 1, waypoint_color, 0)
+											update_ui_text(waypoint_screen_pos_x + 4, waypoint_screen_pos_y - 13, vehicle:get_id(), 30, 0, waypoint_color, 0)
 										elseif g_show_waypoint_ids == 1 and j == waypoint_count -1 and vehicle:get_waypoint(j):get_type() ~= e_waypoint_type.dock then
-											update_ui_text(waypoint_screen_pos_x - 64, waypoint_screen_pos_y - 13, vehicle:get_id(), 128, 1, waypoint_color, 0)
+											update_ui_text(waypoint_screen_pos_x + 4, waypoint_screen_pos_y - 13, vehicle:get_id(), 30, 0, waypoint_color, 0)
 										end
+										
+										-------------------------------
+										-- only calaculate estimated time if going to be shown
+										if g_show_waypoint_time ~= 0 then
+											time_color = waypoint_color
+											prev_pos = vehicle:get_position_xz()
+											if j==0 then
+												prev_pos = vehicle:get_position_xz()
+												dist_to_target = vec2_dist(waypoint_pos, prev_pos)
+											else
+												prev_waypoint = vehicle:get_waypoint(j-1)
+												prev_pos = prev_waypoint:get_position_xz()
+												dist_to_target = dist_to_target + vec2_dist(waypoint_pos, prev_pos)
+											end
 											
+											
+											
+											--vehicle_name = get_chassis_data_by_definition_index(vehicle:get_definition_index())
+											local vehicle_dock_state = vehicle:get_dock_state()
+											
+											
+											
+											local cruise_speed = 120 --assumed to be albi, create function to get unit speeds
+											local arrival_calculation = (dist_to_target / cruise_speed)
+
+											
+											if arrival_calculation then 
+												est_waypoint_time = disp_time(arrival_calculation) 
+											else 
+												est_waypoint_time = 'XX:XX' 
+											end
+											
+											if vehicle_dock_state ~= 0 then
+												est_waypoint_time = '('..est_waypoint_time..')'
+												time_color = color8(180,180,180,6)
+												if g_highlighted.waypoint_id == waypoint:get_id() then
+													time_color = color8(255,255,255,255)
+												end
+												
+											end
+											
+											--don't show times on a waypoint which is docking
+											if g_show_waypoint_time == 2 and vehicle:get_waypoint(j):get_type() ~= e_waypoint_type.dock then
+												update_ui_text(waypoint_screen_pos_x+4, waypoint_screen_pos_y+4, est_waypoint_time, 60, 0, time_color, 0)
+											elseif g_show_waypoint_time == 1 and j == waypoint_count -1 and vehicle:get_waypoint(j):get_type() ~= e_waypoint_type.dock then
+												update_ui_text(waypoint_screen_pos_x+4, waypoint_screen_pos_y+4, est_waypoint_time, 60, 0, time_color, 0)
+											end
+										end
+
+										-------------------------------------
+
+
+
+
+
+										
                                         if is_deploy then
                                             update_ui_image(waypoint_screen_pos_x - 4, waypoint_screen_pos_y - 11, atlas_icons.icon_deploy_vehicle, waypoint_color, 0)
                                         elseif is_group then
@@ -2263,7 +2340,7 @@ function update(screen_w, screen_h, ticks)
                             update_ui_text(0, 2, altitude_text, w, 1, color_white, 0)
                         end)
                     end
-                end
+                end				
             end
         elseif g_highlighted.command_center_id > 0 then
             -- render command center tooltip
