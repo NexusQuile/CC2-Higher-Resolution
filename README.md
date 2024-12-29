@@ -40,6 +40,11 @@ This Mod makes the following further changes to UI Enhancer
   - if more than one unit is docking/undocking/taxi-ing camera will now show unit with the greatest relative altitude (not the most forward on the carrier).
 
 ## Example Images
+
+### Estimated Arrival Time
+![estimated_arrival](https://github.com/user-attachments/assets/1947cefe-637c-465b-9efa-1072599297a8)
+![estimated_arrival2](https://github.com/user-attachments/assets/5e804f26-5283-4f66-84a9-5bdb51150c02)
+
 ### HUD
 ![HUD_comparison](https://github.com/user-attachments/assets/69bdaa00-36ec-4211-8881-f59f26a41791)
 
