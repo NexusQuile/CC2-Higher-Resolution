@@ -233,6 +233,7 @@ atlas_icons = {
     map_icon_damage_indicator = 0,
     map_icon_low_fuel = 0,
     map_icon_low_ammo = 0,
+	map_icon_hold_fire = 0,
     damage_hull = 0,
     damage_bg = 0,
     damage_fr = 0,
@@ -978,4 +979,572 @@ function findif(table, pred)
     end
 
     return nil
+end
+
+
+function table_append_max(tab, value, max_num)
+    -- append a value to a list, trimming the list to max_num elements
+    table.insert(tab, value)
+    if #tab > max_num then
+        table.remove(tab, 1)
+    end
+end
+
+function disp_time(timeval)
+    local minutes = math.floor(timeval/60)
+    remaining = timeval % 60
+    local seconds = math.floor(remaining)
+    if (minutes < 10) then
+      minutes = "0" .. tostring(minutes)
+    end
+    if (seconds < 10) then
+      seconds = "0" .. tostring(seconds)
+    end
+    local answer = tostring(minutes..':'..seconds)
+    return answer
+end
+
+
+-- mini font,
+--
+-- a fixed width 4x5 font
+--
+
+mini_font = {
+    ["-"] = {
+        "     ",
+        "     ",
+        " ####",
+        "     ",
+        "     ",
+    },
+
+    ["0"] = {
+        " ####",
+        " #  #",
+        " #  #",
+        " #  #",
+        " ####",
+    },
+    ["1"] = {
+        "   # ",
+        "  ## ",
+        "   # ",
+        "   # ",
+        "  ###",
+    },
+    ["2"] = {
+        " ####",
+        "    #",
+        " ####",
+        " #   ",
+        " ####",
+    },
+    ["3"] = {
+        " ### ",
+        "    #",
+        "  ## ",
+        "    #",
+        " ### ",
+    },
+    ["4"] = {
+        " #  #",
+        " #  #",
+        " ####",
+        "    #",
+        "    #",
+    },
+    ["5"] = {
+        " ####",
+        " #   ",
+        " ### ",
+        "    #",
+        " ### ",
+    },
+    ["6"] = {
+        "  ###",
+        " #   ",
+        " ####",
+        " #  #",
+        " ### ",
+    },
+    ["7"] = {
+        " ####",
+        "    #",
+        "    #",
+        "    #",
+        "    #",
+    },
+    ["8"] = {
+        " ####",
+        " #  #",
+        " ####",
+        " #  #",
+        " ####",
+    },
+    ["9"] = {
+        " ####",
+        " #  #",
+        " ####",
+        "    #",
+        "    #",
+    },
+    ["A"] = {
+        " ##  ",
+        "#  # ",
+        "#### ",
+        "#  # ",
+        "#  # ",
+    },
+    ["B"] = {
+        "###  ",
+        "#  # ",
+        "###  ",
+        "#  # ",
+        "###  ",
+    },
+    ["C"] = {
+        " ### ",
+        "#    ",
+        "#    ",
+        "#    ",
+        " ### ",
+    },
+    ["D"] = {
+        "###  ",
+        "#  # ",
+        "#  # ",
+        "#  # ",
+        "###  ",
+    },
+    ["E"] = {
+        "#### ",
+        "#    ",
+        "###  ",
+        "#    ",
+        "#### ",
+    },
+    ["F"] = {
+        "#### ",
+        "#    ",
+        "###  ",
+        "#    ",
+        "#    ",
+    },
+    ["G"] = {
+        " ### ",
+        "#    ",
+        "# ## ",
+        "#  # ",
+        " ### ",
+    },
+    ["H"] = {
+        "#  # ",
+        "#  # ",
+        "#### ",
+        "#  # ",
+        "#  # ",
+    },
+    ["I"] = {
+        " ### ",
+        "  #  ",
+        "  #  ",
+        "  #  ",
+        " ### ",
+    },
+    ["J"] = {
+        "   # ",
+        "   # ",
+        "   # ",
+        "#  # ",
+        " ### ",
+    },
+    ["K"] = {
+        " #  #",
+        " # # ",
+        " ##  ",
+        " # # ",
+        " #  #",
+    },
+    ["L"] = {
+        "#    ",
+        "#    ",
+        "#    ",
+        "#    ",
+        "#### ",
+    },
+    ["M"] = {
+        "#   #",
+        "## ##",
+        "# # #",
+        "#   #",
+        "#   #",
+    },
+    ["N"] = {
+        "#  # ",
+        "## # ",
+        "# ## ",
+        "#  # ",
+        "#  # ",
+    },
+    ["O"] = {
+        " ##  ",
+        "#  # ",
+        "#  # ",
+        "#  # ",
+        " ##  ",
+    },
+    ["P"] = {
+        "###  ",
+        "#  # ",
+        "###  ",
+        "#    ",
+        "#    ",
+    },
+    ["Q"] = {
+        " ### ",
+        "#   #",
+        "# # #",
+        "#  ##",
+        " ####",
+    },
+    ["R"] = {
+        "###  ",
+        "#  # ",
+        "###  ",
+        "#  # ",
+        "#  # ",
+    },
+    ["S"] = {
+        " ### ",
+        "#    ",
+        " ##  ",
+        "   # ",
+        "###  ",
+    },
+    ["T"] = {
+        "#####",
+        "  #  ",
+        "  #  ",
+        "  #  ",
+        "  #  ",
+    },
+    ["U"] = {
+        "#  # ",
+        "#  # ",
+        "#  # ",
+        "#  # ",
+        " ### ",
+    },
+    ["V"] = {
+        "#   #",
+        "#   #",
+        "#   #",
+        " # # ",
+        "  #  ",
+    },
+    ["W"] = {
+        "#   #",
+        "#   #",
+        "# # #",
+        "## ##",
+        "#   #",
+    },
+
+
+    ["X"] = {
+        "#   #",
+        " # # ",
+        "  #  ",
+        " # # ",
+        "#   #",
+    },
+    ["Y"] = {
+        "#   #",
+        " # # ",
+        "  #  ",
+        "  #  ",
+        "  #  ",
+    },
+    ["Z"] = {
+        "#### ",
+        "  #  ",
+        " #   ",
+        "#    ",
+        "#### ",
+    },
+    ["%"] = {
+        "#   #",
+        "#  # ",
+        "  #  ",
+        " #  #",
+        "#   #",
+    },
+    [","] = {
+        "     ",
+        "     ",
+        "     ",
+        "  #  ",
+        "  #  ",
+    },
+    ["."] = {
+        "     ",
+        "     ",
+        "     ",
+        "     ",
+        "  #  ",
+    },
+    ["/"] = {
+        "    #",
+        "   # ",
+        "  #  ",
+        " #   ",
+        "#    ",
+    },
+    ["+"] = {
+        "     ",
+        "  #  ",
+        " ### ",
+        "  #  ",
+        "     ",
+    },
+    ["&"] = {
+        " #   ",
+        "# #  ",
+        " #  #",
+        "# ## ",
+        "##  #",
+    },
+    ["^"] = {
+        "  #  ",
+        " # # ",
+        "     ",
+        "     ",
+        "     ",
+    },
+    ["("] = {
+        "   # ",
+        "  #  ",
+        "  #  ",
+        "  #  ",
+        "   # ",
+    },
+    [")"] = {
+        " #   ",
+        "  #  ",
+        "  #  ",
+        "  #  ",
+        " #   ",
+    },
+    ["["] = {
+        "  ## ",
+        "  #  ",
+        "  #  ",
+        "  #  ",
+        "  ## ",
+    },
+    ["]"] = {
+        " ##  ",
+        "  #  ",
+        "  #  ",
+        "  #  ",
+        " ##  ",
+    },
+    ["*"] = {
+        "     ",
+        " # # ",
+        "#####",
+        " # # ",
+        "     ",
+    },
+    ["!"] = {
+        "  #  ",
+        "  #  ",
+        "  #  ",
+        "     ",
+        "  #  ",
+    },
+    ["@"] = {
+        " ### ",
+        "# # #",
+        "# ###",
+        "#    ",
+        " ### ",
+    },
+    ["~"] = {
+        " ## #",
+        "#  # ",
+        "     ",
+        "     ",
+        "     ",
+    },
+    ["#"] = {
+        " # # ",
+        "#####",
+        " # # ",
+        "#####",
+        " # # ",
+    },
+    ["|"] = {
+        "  #  ",
+        "  #  ",
+        "  #  ",
+        "  #  ",
+        "  #  ",
+    },
+    ["'"] = {
+        "  #  ",
+        "  #  ",
+        "     ",
+        "     ",
+        "     ",
+    },
+    ["\\"] = {
+        "#    ",
+        " #   ",
+        "  #  ",
+        "   # ",
+        "    #",
+    },
+    ["?"] = {
+        " ### ",
+        "    #",
+        "  #  ",
+        "     ",
+        "  #  ",
+    },
+    ["<"] = {
+        "   # ",
+        "  #  ",
+        " #   ",
+        "  #  ",
+        "   # ",
+    },
+    [">"] = {
+        " #   ",
+        "  #  ",
+        "   # ",
+        "  #  ",
+        " #   ",
+    },
+    [":"] = {
+        "     ",
+        "  #  ",
+        "     ",
+        "  #  ",
+        "     ",
+    },
+    [";"] = {
+        "     ",
+        "  #  ",
+        "     ",
+        "  #  ",
+        " #   ",
+    },
+}
+
+mini_font_bitmap = {}
+g_mini_font_compiled = false
+
+function mini_font_compile()
+    if g_mini_font_compiled == false then
+        g_mini_font_compiled = true
+        --local_print("compiling mini font..")
+        for ch, rows in pairs(mini_font) do
+            --local_print(ch)
+            mini_font_bitmap[ch] = {}
+			for i, row in ipairs(rows) do
+                local row_value = 0
+                for p in row:gmatch"." do
+                    if p ~= " " then
+                        row_value = row_value | 0xff
+                    end
+                    row_value = row_value << 8
+
+                end
+                -- local_print(string.format("%0.12x", row_value):gsub("00", "  "))
+                table.insert(mini_font_bitmap[ch], row_value)
+            end
+        end
+    end
+end
+
+
+
+function update_ui_get_text_size_mini(txt)
+    txt = string.format("%s", txt)
+    return #txt * 6
+end
+
+function update_ui_text_mini(x, y, txt, w, just, col)
+    local st, err = pcall(function()
+        txt = string.format("%s", txt)
+        local wsize = update_ui_get_text_size_mini(txt)
+        local pad = 0
+        if wsize <= w then
+            pad = w - wsize
+            if just == 1 then
+                -- center
+                pad = math.floor(pad / 2)
+            elseif just == 0 then
+                -- left
+                pad = 0
+            end
+        end
+        --print(pad,x,y,txt,col)
+		update_ui_mini_text(pad + x, y, txt, col)
+    end)
+    if not st then
+        print(err)
+    end
+end
+
+if update_get_is_focus_local == nil then
+    update_get_is_focus_local = function() return g_is_hud end
+end
+
+g_last_is_local = 0
+
+function update_ui_mini_text(x, y, txt, col)
+    
+	if update_get_is_focus_local() or g_last_is_local > 0 then
+        local ui_line = update_ui_line
+		--print("here")
+        if update_get_is_focus_local() then
+            g_last_is_local = math.min(g_last_is_local + 2, 255)
+        else
+            g_last_is_local = g_last_is_local - 1
+        end
+		--print(g_last_is_local,txt,math.min(g_last_is_local, col:a()))
+        local st, err = pcall(function()
+            col = color8(col:r(), col:g(), col:b(), math.min(g_last_is_local, col:a()))
+            mini_font_compile()
+            txt = string.upper(txt)
+			
+			
+            for c in txt:gmatch"." do
+                local ch = mini_font_bitmap[c]
+                --print(c,ch,g_mini_font_compiled)
+				if ch ~= nil then
+                    local iy = y
+                    -- print a dot at each pixel
+                    for i, row_value in ipairs(ch) do
+                        -- each row is a 5 byte bitmap
+                        for n=0, 5 do
+                            if (row_value >> ((5 - n) * 8)) & 0xff ~= 0 then
+                                ui_line(x + n, iy, x + n + 1, iy + 1, col)
+                                -- update_ui_rectangle(x + n, iy, 1, 1, col)
+                            end
+                        end
+                        iy = iy + 1
+                    end
+                end
+                x = x + 5
+            end
+        end)
+
+        if not st then
+            print(err)
+        end
+    end
 end
