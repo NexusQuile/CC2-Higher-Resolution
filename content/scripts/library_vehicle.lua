@@ -626,3 +626,49 @@ function join_strings(strings, delim)
 
     return str
 end
+
+
+
+
+function get_vehicle_cruise_speed(vehicle)
+	local cruise_speed  = 0
+	
+	local def = vehicle:get_definition_index()
+	
+	if def == e_game_object_type.chassis_air_wing_light
+	then
+		cruise_speed  = 121.6
+	end
+	
+	if def == e_game_object_type.chassis_air_wing_light
+	or def == e_game_object_type.chassis_air_wing_heavy
+	then
+		cruise_speed  = 121.6
+	end
+	
+	if def == e_game_object_type.chassis_air_rotor_light 
+	or def == e_game_object_type.chassis_air_rotor_heavy 
+	then
+		cruise_speed  = 57.6
+	end
+
+	if def == e_game_object_type.chassis_land_wheel_light
+	or def == e_game_object_type.chassis_land_wheel_medium
+	or def == e_game_object_type.chassis_land_wheel_heavy 
+	or def == e_game_object_type.chassis_land_wheel_mule 
+	or def == e_game_object_type.chassis_deployable_droid
+	then
+		cruise_speed  = 12 -- appromiate value, default unit speed
+	end
+
+	if def == e_game_object_type.chassis_sea_barge
+	then
+		cruise_speed = 65 -- approximate value, default barge speed
+	end
+	
+	if def == e_game_object_type.chassis_sea_ship_light
+	then
+		cruise_speed = 42 -- approximate value
+	end
+	return(cruise_speed)
+end

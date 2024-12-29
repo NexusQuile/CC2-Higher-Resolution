@@ -2,16 +2,22 @@
 Mod expanding on UI Enhancer mod for Carrier Command 2 to increase the resolution of bridge screens and provide further UI improvements.
 This mod also includes Captain Controls by Mr Scoot and Albatross AWACS by Thumblegudget.
 
-Current Version: 2.4
+Current Version: 2.5
 
 ## Source Mods
 This mod includes the following mods:
 - UI Enhancer Mod is by Quantx and others and is on https://github.com/Quantx/CC2-UI-Enhancer and can be download through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2761300794.
 - Captain Controls is by Mr Scoot and others and can be downloaded through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2824746567.
 - Albatross AWACS is by Thumblegudget and can be downloaded through the Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2891723169
+- Custom small font from the Revolution Mod by Bred et al: https://github.com/cc2modteam/revolution-mod
 
 ## Higher Resolution Changes
 This Mod makes the following further changes to UI Enhancer
+- Control Screens
+   - added option to show vehicle ID on waypoints of firendly vehicles - options are None, Last Waypoint or All Waypoints. Waypoint does not shown ID when it is a dock command on a carrier. This can be set per control screen. Default beahviour as per base game of showing None.
+   - added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. Default beahviour as per base game of showing Last link only. 
+   - added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint). This can be set per control screen. Default beahviour as per base game of showing the loadout only when the unit is Selected.
+   - added option to show estimated arrive time of vehicles to waypoints, options are none, last and all.
 - HUD
    - artifical horizon lines now show the pitch angle (exludes horizon).
 - Navigation Screens
@@ -32,15 +38,9 @@ This Mod makes the following further changes to UI Enhancer
   - camera will now stay with a launching vehicle and not cycle between land and air views in auto mode.
   - camera will now follow aircraft  that are also taxi-ing back to the hanger
   - if more than one unit is docking/undocking/taxi-ing camera will now show unit with the greatest relative altitude (not the most forward on the carrier).
-- Control Screens
-   - added option to show vehicle ID on waypoints of firendly vehicles - options are None, Last Waypoint or All Waypoints. Waypoint does not shown ID when it is a dock command on a carrier. This can be set per control screen. Default beahviour as per base game of showing None.
-   - added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. Default beahviour as per base game of showing Last link only. 
-   - added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint). This can be set per control screen. Default beahviour as per base game of showing the loadout only when the unit is Selected.
-
-
 
 ## Example Images
-#### HUD
+### HUD
 ![HUD_comparison](https://github.com/user-attachments/assets/69bdaa00-36ec-4211-8881-f59f26a41791)
 
 ### Nav Screen Comparison
@@ -67,6 +67,8 @@ This Mod makes the following further changes to UI Enhancer
 
 
 ## Change Log
+v2.5 - add estimated arrival time for vehicles. Also added hold fire option added by recent base game update. 
+
 v2.4 - Hud's artifical horizon lines now display pitch angle
 
 v2.3 - Update to menu items for waypoints to change settings by arrow rather than using butttons

@@ -181,10 +181,10 @@ g_is_render_grid = true
 g_map_window_scroll = 0
 g_selected_bay_index = -1
 
-g_show_waypoint_ids = 0
-g_show_loadouts_ids = 0
+g_show_waypoint_ids = 1
+g_show_loadouts_ids = 1
 g_show_loop_icon = 0
-g_show_waypoint_time = 0
+g_show_waypoint_time = 1
 
 g_blend_tick = 0
 g_prev_pos_x = 0
@@ -212,6 +212,7 @@ g_color_attack_order = color_status_dark_red
 g_color_airlift_order = color_status_ok
 g_color_waypoint = color8(0, 255, 255, 8)
 g_color_resupply = color8(0, 255, 128, 32)
+g_time_color = color8(0, 255, 255, 32)
 
 g_is_mouse_mode = false
 g_pointer_pos_x = 0
@@ -237,19 +238,13 @@ g_tut_undocking_vehicle_id = 0
 g_tut_selected_vehicle_id = 0
 g_tut_selected_waypoint_id = 0
 
-function disp_time(timeval)
-    local minutes = math.floor(timeval/60)
-    remaining = timeval % 60
-    local seconds = math.floor(remaining)
-    if (minutes < 10) then
-      minutes = "0" .. tostring(minutes)
-    end
-    if (seconds < 10) then
-      seconds = "0" .. tostring(seconds)
-    end
-    local answer = tostring(minutes..':'..seconds)
-    return answer
-end
+g_time_x_offset = 4
+g_time_y_offset = 1
+g_ID_x_offset = g_time_x_offset
+g_ID_y_offset = -6
+
+---------------------
+
 
 function ui_render_selection_carrier_vehicle_overview(x, y, w, h, carrier_vehicle)
     update_ui_rectangle(0, 0, 256, 256, color8(0, 0, 0, 128))
@@ -414,7 +409,7 @@ function render_selection_vehicle(screen_w, screen_h, vehicle)
             local title = vehicle_definition_name .. string.format( " ID %.0f", vehicle:get_id() )
             local is_window_active = g_selected_vehicle_ui.confirm_self_destruct == false
 
-            ui:begin_window(title, 10, 10, left_w, 101, atlas_icons.column_pending, is_window_active, 2)
+            ui:begin_window(title, 10, 10, left_w, 113, atlas_icons.column_pending, is_window_active, 2)
                 ui:stat(update_get_loc(e_loc.hp), hitpoints .. "/" .. hitpoints_total, iff(damage_factor < 0.2, color_low, color_high))
 
                 if vehicle_definition_index == e_game_object_type.chassis_land_turret then
@@ -426,7 +421,13 @@ function render_selection_vehicle(screen_w, screen_h, vehicle)
                 end
 
                 ui:header(update_get_loc(e_loc.upp_actions))
-                
+				
+                if def_index ~= e_game_object_type.chassis_carrier and def_index ~= e_game_object_type.chassis_sea_barge and def_index ~= e_game_object_type.chassis_land_robot_dog then
+                    local is_vehicle_hold_fire = vehicle:get_is_hold_fire()
+                    is_hold_fire, is_modified = ui:checkbox(update_get_loc(e_loc.hold_fire), is_vehicle_hold_fire)
+                    if is_modified then vehicle:set_is_hold_fire(is_hold_fire) end
+                end
+				
                 if ui:list_item(update_get_loc(e_loc.upp_center_to_vehicle), true) then
                     g_camera_pos_x = vehicle:get_position_xz():x()
                     g_camera_pos_y = vehicle:get_position_xz():y()
@@ -459,8 +460,8 @@ function render_selection_vehicle(screen_w, screen_h, vehicle)
                 end
             end
 
-            if #attachments > 0 and vehicle:get_definition_index() ~= e_game_object_type.chassis_land_turret then
-                local window = ui:begin_window(update_get_loc(e_loc.upp_ammo), 10, 116, left_w, { max=130 }, atlas_icons.column_stock, false, 2)
+            if #attachments > 0 and def_index ~= e_game_object_type.chassis_land_turret then
+                local window = ui:begin_window(update_get_loc(e_loc.upp_ammo), 10, 123, left_w, { max=130 }, atlas_icons.column_stock, false, 2)
                 local region_w, region_h = ui:get_region()
                 local cy = 0
 
@@ -867,7 +868,7 @@ function render_selection_map(screen_w, screen_h)
 
     local is_local = update_get_is_focus_local()
 
-    local window = ui:begin_window(update_get_loc(e_loc.upp_map), 30, 30, screen_w - 60, screen_h - 60, atlas_icons.column_pending, true, 2)
+    local window = ui:begin_window(update_get_loc(e_loc.upp_map), 10, 10, screen_w - 20, screen_h - 20, atlas_icons.column_pending, true, 2)
         if is_local then
             g_map_window_scroll = window.scroll_y
         else
@@ -929,23 +930,22 @@ function render_selection_map(screen_w, screen_h)
 		
 		ui:divider()
 				
-        local waypoint_id_selection = ui:combo("Show Vehicle ID on Waypoints",g_show_waypoint_ids, { "None", "Last", "All" })
+        local waypoint_id_selection = ui:combo("ID on Waypoints",g_show_waypoint_ids, { "None", "Last", "All" })
 		if waypoint_id_selection ~= -1 then 
 			g_show_waypoint_ids = waypoint_id_selection
 		end
 		
-		local loop_icon_selection = ui:combo("Show Loop Icon on Waypoint links",g_show_loop_icon, { "Last", "All" })
+		local loop_icon_selection = ui:combo("Loop Icon on Waypoint",g_show_loop_icon, { "Last", "All" })
 		if loop_icon_selection ~= -1 then 
 			g_show_loop_icon = loop_icon_selection
-			print(g_show_loop_icon)
 		end
 		
-        local vehicle_loadout_selection = ui:combo("Show Vehicle Loadout",g_show_loadouts_ids, { "Selected" , "Hover" , "Waypoints" })
+        local vehicle_loadout_selection = ui:combo("Show Vehicle Loadout",g_show_loadouts_ids, { "Select" , "Hover" , "Wypnts" })
 		if vehicle_loadout_selection ~= -1 then 
 			g_show_loadouts_ids = vehicle_loadout_selection
 		end
 		
-		local waypoint_time_selection = ui:combo("Show Arrival Times",g_show_waypoint_time, { "None" , "Last" , "All" })
+		local waypoint_time_selection = ui:combo("Arrival Times",g_show_waypoint_time, { "None" , "Last" , "All" })
 		if waypoint_time_selection ~= -1 then 
 			g_show_waypoint_time = waypoint_time_selection
 		end
@@ -1456,8 +1456,8 @@ function update(screen_w, screen_h, ticks)
         end
 
         if g_drag.vehicle_id > 0 then
-            local weapon_radius_vehicle = update_get_map_vehicle_by_id(g_drag.vehicle_id)
-
+            
+			local weapon_radius_vehicle = update_get_map_vehicle_by_id(g_drag.vehicle_id)
             if weapon_radius_vehicle:get() then
                 if weapon_radius_vehicle:get_team() == screen_team then
                     local weapon_range, weapon_range_col = get_vehicle_weapon_range(weapon_radius_vehicle)
@@ -1820,6 +1820,21 @@ function update(screen_w, screen_h, ticks)
                                         end
                                     end
 
+									-- if showing waypoint time then record unit's history to enable calculation of its speeed
+									
+									--if g_show_waypoint_time ~= 0 then
+										
+									--	
+									--		save_vehicle_history(vehicle_history_table, vehicle)
+									--	end
+									--	local travel_time = 200
+										
+										
+									
+									--end
+									
+
+
                                     for j = 0, waypoint_count - 1, 1 do
                                         local waypoint = vehicle:get_waypoint(j)
                                         local waypoint_pos = waypoint:get_position_xz()
@@ -1843,10 +1858,15 @@ function update(screen_w, screen_h, ticks)
                                         local is_group = (is_group_a or is_group_b or is_group_c or is_group_d)
                                         local is_deploy = waypoint:get_type() == e_waypoint_type.deploy
 
+
+										time_color = g_time_color
+
                                         if g_highlighted.vehicle_id == vehicle:get_id() and g_highlighted.waypoint_id == 0 then
                                             waypoint_color = color8(255, 255, 255, 255)
+											time_color = color8(255, 255, 255, 255)
                                         elseif g_highlighted.vehicle_id == vehicle:get_id() and g_highlighted.waypoint_id == waypoint:get_id() then
                                             waypoint_color = color8(255, 255, 255, 255)
+											time_color = color8(255, 255, 255, 255)
                                         elseif is_deploy then
                                             waypoint_color = g_color_airlift_order
                                         elseif is_group then
@@ -1857,16 +1877,17 @@ function update(screen_w, screen_h, ticks)
 										
 										--show IDs on waypoints based on setting, don't show ID on a waypoint which is docking
 										if g_show_waypoint_ids == 2 and vehicle:get_waypoint(j):get_type() ~= e_waypoint_type.dock then
-											update_ui_text(waypoint_screen_pos_x + 4, waypoint_screen_pos_y - 13, vehicle:get_id(), 30, 0, waypoint_color, 0)
+											update_ui_text_mini(waypoint_screen_pos_x + g_ID_x_offset, waypoint_screen_pos_y +g_ID_y_offset, vehicle:get_id(), 30, 0, time_color, 0)
 										elseif g_show_waypoint_ids == 1 and j == waypoint_count -1 and vehicle:get_waypoint(j):get_type() ~= e_waypoint_type.dock then
-											update_ui_text(waypoint_screen_pos_x + 4, waypoint_screen_pos_y - 13, vehicle:get_id(), 30, 0, waypoint_color, 0)
+											update_ui_text_mini(waypoint_screen_pos_x + g_ID_x_offset, waypoint_screen_pos_y +g_ID_y_offset, vehicle:get_id(), 30, 0, time_color, 0)
 										end
 										
 										-------------------------------
 										-- only calaculate estimated time if going to be shown
 										if g_show_waypoint_time ~= 0 then
-											time_color = waypoint_color
+																						
 											prev_pos = vehicle:get_position_xz()
+											
 											if j==0 then
 												prev_pos = vehicle:get_position_xz()
 												dist_to_target = vec2_dist(waypoint_pos, prev_pos)
@@ -1876,16 +1897,12 @@ function update(screen_w, screen_h, ticks)
 												dist_to_target = dist_to_target + vec2_dist(waypoint_pos, prev_pos)
 											end
 											
+											local vehicle_dock_state = vehicle:get_dock_state()	
+																					
+											local cruise_speed  = get_vehicle_cruise_speed(vehicle)
 											
-											
-											--vehicle_name = get_chassis_data_by_definition_index(vehicle:get_definition_index())
-											local vehicle_dock_state = vehicle:get_dock_state()
-											
-											
-											
-											local cruise_speed = 120 --assumed to be albi, create function to get unit speeds
-											local arrival_calculation = (dist_to_target / cruise_speed)
-
+											local arrival_calculation = 0
+											if cruise_speed > 1 then arrival_calculation=(dist_to_target / cruise_speed) end --avoid divide by zero error
 											
 											if arrival_calculation then 
 												est_waypoint_time = disp_time(arrival_calculation) 
@@ -1893,20 +1910,28 @@ function update(screen_w, screen_h, ticks)
 												est_waypoint_time = 'XX:XX' 
 											end
 											
+											-- if still docked then show time in brackets and in grey
 											if vehicle_dock_state ~= 0 then
 												est_waypoint_time = '('..est_waypoint_time..')'
 												time_color = color8(180,180,180,6)
+												--if highlighted then default back to other color
 												if g_highlighted.waypoint_id == waypoint:get_id() then
-													time_color = color8(255,255,255,255)
+													time_color = color8(255, 255, 255, 255)
 												end
-												
 											end
 											
-											--don't show times on a waypoint which is docking
-											if g_show_waypoint_time == 2 and vehicle:get_waypoint(j):get_type() ~= e_waypoint_type.dock then
-												update_ui_text(waypoint_screen_pos_x+4, waypoint_screen_pos_y+4, est_waypoint_time, 60, 0, time_color, 0)
-											elseif g_show_waypoint_time == 1 and j == waypoint_count -1 and vehicle:get_waypoint(j):get_type() ~= e_waypoint_type.dock then
-												update_ui_text(waypoint_screen_pos_x+4, waypoint_screen_pos_y+4, est_waypoint_time, 60, 0, time_color, 0)
+											-- Show times on a waypoint which is not docking and is larger than 2 seconds
+											if arrival_calculation > 2 and vehicle:get_waypoint(j):get_type() ~= e_waypoint_type.dock then
+												if g_show_waypoint_time == 2 then
+													-- show time on all waypoints
+													update_ui_text_mini(waypoint_screen_pos_x + g_time_x_offset, waypoint_screen_pos_y +g_time_y_offset, est_waypoint_time, 60, 0, time_color, 0)
+												elseif g_show_waypoint_time == 1 and j == waypoint_count -1 and vehicle:get_waypoint(j):get_type() ~= e_waypoint_type.dock then
+													-- show time on last waypoint if not docking
+													update_ui_text_mini(waypoint_screen_pos_x + g_time_x_offset, waypoint_screen_pos_y +g_time_y_offset, est_waypoint_time, 60, 0, time_color, 0)
+												elseif g_show_waypoint_time == 1 and j == waypoint_count -2 and vehicle:get_waypoint(waypoint_count - 1):get_type() == e_waypoint_type.dock then
+													-- if last wyapoint is docking then show on penultimate waypoint
+													update_ui_text_mini(waypoint_screen_pos_x + g_time_x_offset, waypoint_screen_pos_y +g_time_y_offset, est_waypoint_time, 60, 0, time_color, 0)
+												end
 											end
 										end
 
@@ -1920,7 +1945,7 @@ function update(screen_w, screen_h, ticks)
                                         if is_deploy then
                                             update_ui_image(waypoint_screen_pos_x - 4, waypoint_screen_pos_y - 11, atlas_icons.icon_deploy_vehicle, waypoint_color, 0)
                                         elseif is_group then
-                                            update_ui_text(waypoint_screen_pos_x - 64, waypoint_screen_pos_y - 13, group_text, 128, 1, waypoint_color, 0)
+											update_ui_text_mini(waypoint_screen_pos_x-10, waypoint_screen_pos_y - 10, group_text, 24, 1, waypoint_color, 0)
                                         end
                                     end
                                 end
@@ -2063,6 +2088,12 @@ function update(screen_w, screen_h, ticks)
                                         update_ui_image(cx, cy, atlas_icons.map_icon_low_ammo, icon_color, 0)
                                         cx = cx + 4
                                     end
+									
+									if vehicle:get_is_hold_fire() then
+                                        update_ui_image(cx, cy, atlas_icons.map_icon_hold_fire, color8(255, 0, 0, 255), 0)
+                                        cx = cx + 4
+                                    end
+									
                                 end
 
                                 if vehicle_team == screen_team then
@@ -2103,8 +2134,11 @@ function update(screen_w, screen_h, ticks)
                         end
                     end
                 end
-            end
+            end	
+			
         end
+		
+
 
         -- render missiles to map
 
@@ -2226,6 +2260,60 @@ function update(screen_w, screen_h, ticks)
                     if g_drag_distance > 2 then
                         drag_start_pos = waypoint_pos
                     end
+					
+					--display estimated arrival time at location
+					if g_show_waypoint_time ~= 0 then
+						time_color = color8(255, 255, 255, 255)
+
+						
+						local vehicle = update_get_map_vehicle_by_id(g_drag.vehicle_id)
+						local waypoint_count = vehicle:get_waypoint_count()
+
+						local world_x, world_y = get_world_from_screen(g_cursor_pos_x, g_cursor_pos_y, g_camera_pos_x, g_camera_pos_y, g_camera_size, 256, 256)
+						new_waypoint_pos = vec2(world_x, world_y)
+						prev_pos = vehicle:get_position_xz()
+						dist_to_target = vec2_dist(vec2(world_x, world_y), prev_pos)							
+						
+							for j=0, waypoint_count-1, 1 do
+
+								local waypoint = vehicle:get_waypoint(j)
+								local waypoint_pos = waypoint:get_position_xz()
+								if j==0 then
+									prev_pos = vehicle:get_position_xz()
+									dist_to_target = vec2_dist(waypoint_pos, prev_pos)
+								else
+									prev_waypoint = vehicle:get_waypoint(j-1)
+									prev_pos = prev_waypoint:get_position_xz()
+									dist_to_target = dist_to_target + vec2_dist(waypoint_pos, prev_pos)
+								end
+							end
+							
+						dist_to_target = dist_to_target + vec2_dist(waypoint_pos, new_waypoint_pos)		
+													
+						local vehicle_dock_state = vehicle:get_dock_state()	
+
+						local cruise_speed  = get_vehicle_cruise_speed(vehicle)
+
+						local arrival_calculation = 0
+						if cruise_speed > 1 then arrival_calculation=(dist_to_target / cruise_speed) end --avoid divide by zero error
+
+						if arrival_calculation then 
+							est_waypoint_time = disp_time(arrival_calculation) 
+						else 
+							est_waypoint_time = 'XX:XX' 
+						end
+						
+						-- if still docked then show time in brackets and in grey
+						if vehicle_dock_state ~= 0 then
+							est_waypoint_time = '('..est_waypoint_time..')'
+							--time_color = color8(180,180,180,6)							
+						end
+
+						update_ui_text_mini(g_cursor_pos_x+g_time_x_offset, g_cursor_pos_y+g_time_y_offset, est_waypoint_time, 60, 0, time_color, 0)
+												
+					end
+						
+					
                 else
                     g_drag:clear()
                 end
@@ -2246,6 +2334,39 @@ function update(screen_w, screen_h, ticks)
                 if g_drag_distance > 2 then
                     drag_start_pos = vehicle_pos_xz
                 end
+				
+				--display estimated arrival time at location
+				if g_show_waypoint_time ~= 0 then
+					time_color = color8(255, 255, 255, 255)
+
+					local vehicle = update_get_map_vehicle_by_id(g_drag.vehicle_id)
+					local world_x, world_y = get_world_from_screen(g_cursor_pos_x, g_cursor_pos_y, g_camera_pos_x, g_camera_pos_y, g_camera_size, 256, 256)
+					new_waypoint_pos = vec2(world_x, world_y)
+					prev_pos = vehicle:get_position_xz()
+					dist_to_target = vec2_dist(new_waypoint_pos, prev_pos)							
+							
+					local vehicle_dock_state = vehicle:get_dock_state()	
+																						
+					local cruise_speed  = get_vehicle_cruise_speed(vehicle)
+												
+					local arrival_calculation = 0
+					if cruise_speed > 1 then arrival_calculation=(dist_to_target / cruise_speed) end --avoid divide by zero error
+												
+					if arrival_calculation then 
+						est_waypoint_time = disp_time(arrival_calculation) 
+					else 
+						est_waypoint_time = 'XX:XX' 
+					end
+					
+					-- if still docked then show time in brackets and in grey
+					if vehicle_dock_state ~= 0 then
+						est_waypoint_time = '('..est_waypoint_time..')'
+						--time_color = color8(180,180,180,6)						
+					end
+
+					update_ui_text_mini(g_cursor_pos_x+g_time_x_offset, g_cursor_pos_y+g_time_y_offset, est_waypoint_time, 60, 0, time_color, 0)
+											
+				end
             else
                 g_drag:clear()
             end
@@ -2271,6 +2392,45 @@ function update(screen_w, screen_h, ticks)
                 update_ui_line(screen_pos_x, screen_pos_y, g_cursor_pos_x, g_cursor_pos_y, drag_line_color)
                 
                 drag_start_pos = vehicle_pos_xz
+				
+				--display estimated arrival time at location
+				if g_show_waypoint_time ~= 0 then
+					
+					time_color = color8(255,255,255,255)
+
+					local vehicle = update_get_map_vehicle_by_id(g_selected_child_vehicle_id)
+					local world_x, world_y = get_world_from_screen(g_cursor_pos_x, g_cursor_pos_y, g_camera_pos_x, g_camera_pos_y, g_camera_size, 256, 256)
+					new_waypoint_pos = vec2(world_x, world_y)
+					prev_pos = vehicle:get_position_xz()
+					dist_to_target = vec2_dist(new_waypoint_pos, prev_pos)										
+												
+					local vehicle_dock_state = vehicle:get_dock_state()	
+																						
+					local cruise_speed  = get_vehicle_cruise_speed(vehicle)
+												
+					local arrival_calculation = 0
+					if cruise_speed > 1 then arrival_calculation=(dist_to_target / cruise_speed) end --avoid divide by zero error
+												
+
+												
+					if arrival_calculation then 
+						est_waypoint_time = disp_time(arrival_calculation) 
+					else 
+						est_waypoint_time = 'XX:XX' 
+					end
+
+					--if still docked then show time in brackets and in grey
+					if vehicle_dock_state ~= 0 then
+
+						est_waypoint_time = '('..est_waypoint_time..')'
+						--time_color = color8(180,180,180,12)
+
+					end
+
+					update_ui_text_mini(g_cursor_pos_x+g_time_x_offset, g_cursor_pos_y+g_time_y_offset, est_waypoint_time, 60, 0, time_color, 0)
+
+				end
+				
             end
         elseif g_highlighted.vehicle_id > 0 and g_highlighted.waypoint_id == 0 then
             -- render highlighted tooltip
