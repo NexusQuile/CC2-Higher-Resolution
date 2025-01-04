@@ -2246,8 +2246,8 @@ function imgui_options_menu(ui, x, y, w, h, is_active, selected_category_index, 
                 settings.vr_world_scale                 = ui:slider(update_get_loc(e_loc.vr_world_scale), settings.vr_world_scale, 0.5, 2, 0.1)
                 settings.vr_tablet_index                = ui:combo(update_get_loc(e_loc.vr_tablet_index), settings.vr_tablet_index, { "1", "2" })
                 settings.vr_controller_tooltips         = ui:checkbox(update_get_loc(e_loc.vr_controller_tooltips), settings.vr_controller_tooltips)
-				settings.vr_voice_xmit                  = ui:checkbox(update_get_loc(e_loc.voice), settings.vr_voice_xmit)
-                settings.vr_screen_tilt                 = ui:checkbox(update_get_loc(e_loc.vr_screen_tilt), settings.vr_screen_tilt)
+                settings.vr_voice_xmit                  = ui:checkbox(update_get_loc(e_loc.voice), settings.vr_voice_xmit)
+				settings.vr_screen_tilt                 = ui:checkbox(update_get_loc(e_loc.vr_screen_tilt), settings.vr_screen_tilt)
                 settings.vr_move_mode                   = ui:combo(update_get_loc(e_loc.vr_move_mode), settings.vr_move_mode, { update_get_loc(e_loc.vr_move_mode_teleport), update_get_loc(e_loc.vr_move_mode_smooth) })
                 settings.vr_smooth_move_speed           = ui:slider(update_get_loc(e_loc.vr_smooth_move_speed), settings.vr_smooth_move_speed, 0.5, 2, 0.1)
                 settings.vr_smooth_rotate_speed         = ui:slider(update_get_loc(e_loc.vr_smooth_rotate_speed), settings.vr_smooth_rotate_speed, 0.5, 2, 0.1)
@@ -2872,6 +2872,8 @@ function imgui_vehicle_chassis_loadout(ui, vehicle, selected_bay_index)
     local selected_attachment_index = -1
     local hovered_attachment_index = -1
 
+	local this_vehicle = update_get_screen_vehicle()
+
     cx = cx + (w - 64) / 2
 
     if vehicle == nil or vehicle:get() == false then
@@ -2945,9 +2947,32 @@ function imgui_vehicle_chassis_loadout(ui, vehicle, selected_bay_index)
 
             if attachment:get() then
                 local attachment_definition_index = attachment:get_definition_index()
-
+				
+			
+				
+				
                 if attachment_definition_index > 0 then
-                    local total_capacity = 0
+                    
+					
+				--check to see if there is enough stock_count
+					local capacity = attachment:get_ammo_capacity()
+					local loaded = attachment:get_ammo_remaining()
+					local ammo_type = update_get_attachment_ammo_item_type(attachment_definition_index)
+					
+					local stock_sufficient = true
+					
+					if ammo_type ~= -1 then
+						local ammo_count = this_vehicle:get_inventory_count_by_item_index(ammo_type)	
+						
+						if (loaded+ammo_count)<=capacity and vehicle:get_is_ammo_blocked() then
+							stock_sufficient = false
+						end
+
+						--print("Ammo Type: "..ammo_type.."	Stock:"..ammo_count.."		Capacity:"..capacity.."	Loaded:"..loaded)
+						--print(stock_sufficient)
+					end
+					
+					local total_capacity = 0
                     local resupply_factor = 0
 
                     if attachment:get_ammo_capacity() > 0 then
@@ -2966,10 +2991,14 @@ function imgui_vehicle_chassis_loadout(ui, vehicle, selected_bay_index)
                     local icon_w, icon_h = update_ui_get_image_size(attachment_icon_region)
 
                     if resupply_factor < 1.0 then
-                        update_ui_image(x + (attachment_w - icon_w) / 2, y + (attachment_h - icon_h) / 2, attachment_icon_region, color_status_bad, 0)
+						if stock_sufficient then
+							update_ui_image(x + (attachment_w - icon_w) / 2, y + (attachment_h - icon_h) / 2, attachment_icon_region, color8(255,255,0,255), 0)
 
-                        update_ui_rectangle(x + 1, y + (attachment_h / 2) - 2, attachment_w - 2, 4, color_black)
-                        update_ui_rectangle(x + 1, y + (attachment_h / 2) - 2, (attachment_w - 2) * resupply_factor, 4, color_white)
+							update_ui_rectangle(x + 1, y + (attachment_h / 2) - 2, attachment_w - 2, 4, color_black)
+							update_ui_rectangle(x + 1, y + (attachment_h / 2) - 2, (attachment_w - 2) * resupply_factor, 4, color_white)
+						else
+							update_ui_image(x + (attachment_w - icon_w) / 2, y + (attachment_h - icon_h) / 2, attachment_icon_region, color_status_bad, 0)
+						end
                     else
                         update_ui_image(x + (attachment_w - icon_w) / 2, y + (attachment_h - icon_h) / 2, attachment_icon_region, color_status_ok, 0)
                     end
