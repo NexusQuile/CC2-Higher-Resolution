@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data name="Higher Resolution UI Enhancer" author="Nexus_314" description="This mod combines the effects of Higher Resolution Navigation,  Higher Resolution Radar, UI Enhancer, Captain Controls, Albatross AWACS and other further improvements.
+<data name="Higher Resolution UI Enhancer-v2.6" author="Nexus_314" description="This mod combines the effects of Higher Resolution Navigation,  Higher Resolution Radar, UI Enhancer, Captain Controls, Albatross AWACS and other further improvements.
 
-Current Version: 2.5
+Current Version: 2.6
 
 https://github.com/NexusQuile/CC2-Higher-Resolution
 
@@ -20,16 +20,19 @@ Version 2024/03/17 (Steam)
 Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2891723169
 Version v2 2024/03/11 (Steam)
 
+The mod also uses the custom small font from the Revolution Mod by Bredroll et al: https://github.com/cc2modteam/revolution-mod.
+
 [h2]Higher Resolution Changes:[/h2]
 
 This Mod makes the following further changes:
 
 [b]Control Screens[/b]
 [list]
-[*]added option to show vehicle ID on waypoints of firendly vehicles. Waypoint does not shown ID when it is a dock command on a carrier.
-[*]added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. 
-[*]added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint).
 [*]added option to show estimated arrive time of vehicles to waypoints, options are none, last and all.
+[*]aircraft now show an Estimated Flight Time (EFT) and Estimated Flight Range (EFR) when selected. These values asssume AI control flying a patrol route. Mannually flying faster will reduce EFT but incease EFR (slower will increase EFT but reduce EFR).
+[*]added option to show vehicle ID on waypoints of firendly vehicles. Waypoint does not shown ID when it is a dock command on a carrier.
+[*]added option to show looping icon on all the waypoint links that are in the loop - not just the last. This can be set per control screen. 
+[*]added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint).
 [/list]
 
 [b]Navigation Screens[/b]
