@@ -631,44 +631,74 @@ end
 
 
 function get_vehicle_cruise_speed(vehicle)
-	local cruise_speed  = 0
+	local cruise_speed_table = {
+		[e_game_object_type.chassis_air_wing_light] = 120,
+		[e_game_object_type.chassis_air_rotor_light] = 57.67,
+		[e_game_object_type.chassis_air_wing_heavy] = 121.7,
+		[e_game_object_type.chassis_air_rotor_heavy] = 57.67,
+		[e_game_object_type.chassis_land_wheel_heavy] = 12,
+		[e_game_object_type.chassis_land_wheel_medium] = 12,
+		[e_game_object_type.chassis_land_wheel_mule] = 12,
+		[e_game_object_type.chassis_land_wheel_light] = 12,
+		[e_game_object_type.chassis_sea_ship_light] = 42,
+		[e_game_object_type.chassis_deployable_droid] = 1.5,
+	}
 	
 	local def = vehicle:get_definition_index()
 	
-	if def == e_game_object_type.chassis_air_wing_light
-	then
-		cruise_speed  = 121.6
+	local cruise_speed = cruise_speed_table[def]
+	
+	if cruise_speed == nil then
+        cruise_speed = 0
 	end
 	
-	if def == e_game_object_type.chassis_air_wing_light
-	or def == e_game_object_type.chassis_air_wing_heavy
-	then
-		cruise_speed  = 121.6
-	end
-	
-	if def == e_game_object_type.chassis_air_rotor_light 
-	or def == e_game_object_type.chassis_air_rotor_heavy 
-	then
-		cruise_speed  = 57.6
-	end
-
-	if def == e_game_object_type.chassis_land_wheel_light
-	or def == e_game_object_type.chassis_land_wheel_medium
-	or def == e_game_object_type.chassis_land_wheel_heavy 
-	or def == e_game_object_type.chassis_land_wheel_mule 
-	or def == e_game_object_type.chassis_deployable_droid
-	then
-		cruise_speed  = 12 -- appromiate value, default unit speed
-	end
-
-	if def == e_game_object_type.chassis_sea_barge
-	then
-		cruise_speed = 65 -- approximate value, default barge speed
-	end
-	
-	if def == e_game_object_type.chassis_sea_ship_light
-	then
-		cruise_speed = 42 -- approximate value
-	end
 	return(cruise_speed)
+end
+
+
+function get_vehicle_fuel_capacity(vehicle)	
+	local internal_fuel_sizes = {
+		[e_game_object_type.chassis_air_wing_light] = 800,
+		[e_game_object_type.chassis_air_rotor_light] = 400,
+		[e_game_object_type.chassis_air_wing_heavy] = 1200,
+		[e_game_object_type.chassis_air_rotor_heavy] = 2000,
+		[e_game_object_type.chassis_carrier] = 50000,
+		[e_game_object_type.chassis_land_wheel_heavy] = 1600,
+		[e_game_object_type.chassis_land_wheel_medium] = 1200,
+		[e_game_object_type.chassis_land_wheel_mule] = 2000,
+		[e_game_object_type.chassis_land_wheel_light] = 800,
+		[e_game_object_type.chassis_sea_ship_light] = 10000,
+		[e_game_object_type.chassis_deployable_droid] = 1000,
+	}
+	
+	local def = vehicle:get_definition_index()
+	
+	local fuel_capacity = internal_fuel_sizes[def]
+	
+	if fuel_capacity == nil then
+        fuel_capacity = 0
+    end
+	
+	return fuel_capacity
+end
+
+
+function get_vehicle_fuel_consumption(vehicle)
+	local fuel_consumption_table = {
+		[e_game_object_type.chassis_air_wing_light] = 27,
+		[e_game_object_type.chassis_air_rotor_light] = 29,
+		[e_game_object_type.chassis_air_wing_heavy] = 33,
+		[e_game_object_type.chassis_air_rotor_heavy] = 73,
+	}
+	
+	local def = vehicle:get_definition_index()
+
+	local fuel_consumption = fuel_consumption_table[def]
+
+	
+	if fuel_consumption == nil then
+        fuel_capacity = false
+	end
+
+	return(fuel_consumption)
 end

@@ -1145,7 +1145,7 @@ lib_imgui = {
         local is_active = window.is_active
         stat_col_selected = stat_col_selected or stat_col
 
-        local label_w = math.floor(w * window.label_bias)
+        local label_w = math.floor(0.9*w * window.label_bias)
         local stat_w = w - label_w - 2
         local text_col = iff(is_active, iff(is_selected, color_grey_mid, color_grey_dark), color_grey_dark)
         local text_h = 10
