@@ -394,6 +394,9 @@ function render_selection_vehicle(screen_w, screen_h, vehicle)
                 imgui_vehicle_chassis_loadout(ui, vehicle, selected_bay_index)
             ui:end_window()
 
+
+			local window_height = 126
+
             local vehicle_definition_index = vehicle:get_definition_index()
             local vehicle_definition_name, vehicle_definition_region = get_chassis_data_by_definition_index(vehicle_definition_index)
 
@@ -406,19 +409,54 @@ function render_selection_vehicle(screen_w, screen_h, vehicle)
             local color_mid = color8(255, 255, 0, 255)
             local color_high = color_status_ok
 
+
+			-- fuel calculations
+			local attachment_count = vehicle:get_attachment_count()
+			--print("Count:",attachment_count)
+			local total_fuel_capacity = 0
+			for i = 0, attachment_count - 1, 1 do
+                local attachment = vehicle:get_attachment(i)
+				--print(attachment)
+
+                if attachment:get() and attachment:get_fuel_capacity() > 0 then
+                     total_fuel_capacity = total_fuel_capacity + attachment:get_fuel_capacity()
+                end
+            end
+			
+			total_fuel_capacity=total_fuel_capacity+get_vehicle_fuel_capacity(vehicle)
+			--print(total_fuel_capacity)
+			local current_fuel = fuel_factor*total_fuel_capacity
+			--print(current_fuel, fuel_factor, total_fuel_capacity)
+			local fuel_consumption = get_vehicle_fuel_consumption(vehicle)
+			EFT = "-"
+			if fuel_consumption then
+				EFT = math.floor(current_fuel/fuel_consumption)
+				EFR = math.floor(get_vehicle_cruise_speed(vehicle)*60*0.001*current_fuel/fuel_consumption)
+				--print(EFT,get_vehicle_cruise_speed(vehicle),EFR)
+				window_height = 150
+			end
+			
+			-------------
+
             local title = vehicle_definition_name .. string.format( " ID %.0f", vehicle:get_id() )
             local is_window_active = g_selected_vehicle_ui.confirm_self_destruct == false
 
-            ui:begin_window(title, 10, 10, left_w, 113, atlas_icons.column_pending, is_window_active, 2)
+            ui:begin_window(title, 10, 10, left_w, window_height, atlas_icons.column_pending, is_window_active, 2)
                 ui:stat(update_get_loc(e_loc.hp), hitpoints .. "/" .. hitpoints_total, iff(damage_factor < 0.2, color_low, color_high))
 
                 if vehicle_definition_index == e_game_object_type.chassis_land_turret then
                     ui:stat(update_get_loc(e_loc.upp_fuel), "---", color_grey_dark)
                     ui:stat(update_get_loc(e_loc.upp_ammo), "---", color_grey_dark)
                 else
-                    ui:stat(update_get_loc(e_loc.upp_fuel), string.format("%.0f%%", fuel_factor * 100), iff(fuel_factor < 0.25, color_low, iff(fuel_factor < 0.5, color_mid, color_high)))
+                    
+					if fuel_consumption then
+						ui:stat("EFT",EFT.." minutes",iff(fuel_factor < 0.25, color_low, iff(fuel_factor < 0.5, color_mid, color_high)))
+						ui:stat("EFR",EFR.." km",iff(fuel_factor < 0.25, color_low, iff(fuel_factor < 0.5, color_mid, color_high)))
+					end
+					ui:stat(update_get_loc(e_loc.upp_fuel), string.format("%.0f%%", fuel_factor * 100), iff(fuel_factor < 0.25, color_low, iff(fuel_factor < 0.5, color_mid, color_high)))
+					ui:stat("",string.format("%d/%d",math.floor(current_fuel),total_fuel_capacity),iff(fuel_factor < 0.25, color_low, iff(fuel_factor < 0.5, color_mid, color_high)))
                     ui:stat(update_get_loc(e_loc.upp_ammo), string.format("%.0f%%", ammo_factor * 100), iff(ammo_factor < 0.25, color_low, iff(ammo_factor < 0.5, color_mid, color_high)))
-                end
+				end
 
                 ui:header(update_get_loc(e_loc.upp_actions))
 				
@@ -461,7 +499,21 @@ function render_selection_vehicle(screen_w, screen_h, vehicle)
             end
 
             if #attachments > 0 and def_index ~= e_game_object_type.chassis_land_turret then
-                local window = ui:begin_window(update_get_loc(e_loc.upp_ammo), 10, 123, left_w, { max=130 }, atlas_icons.column_stock, false, 2)
+                
+				local ui = g_ui
+            
+				local loadout_w = 74
+				local left_w = screen_w - loadout_w - 25
+
+				--local window = ui:begin_window(update_get_loc(e_loc.upp_loadout), 10 + left_w + 5, 10, loadout_w, 84, atlas_icons.column_stock, false, 2)
+                local region_w, region_h = ui:get_region()
+                window.cy = region_h / 2 - 32
+                --imgui_vehicle_chassis_loadout(ui, vehicle, selected_bay_index)
+				--ui:end_window()
+				
+				
+				
+				local window = ui:begin_window(update_get_loc(e_loc.upp_ammo), 10 + left_w + 5, 94, loadout_w, { max=130 }, atlas_icons.column_stock, false, 2)
                 local region_w, region_h = ui:get_region()
                 local cy = 0
 
@@ -476,10 +528,10 @@ function render_selection_vehicle(screen_w, screen_h, vehicle)
 
                     if ammo_capacity > 0 then
                         local ammo_remaining = attachment:get_ammo_remaining()
-                        update_ui_text(21, cy + 4, ammo_remaining .. "/" .. ammo_capacity, 100, 0, iff(ammo_remaining == 0, color_status_bad, color_status_ok), 0)
+                        update_ui_text(21, cy + 4, ammo_remaining .. "/" .. ammo_capacity, loadout_w-26, 2, iff(ammo_remaining == 0, color_status_bad, color_status_ok), 0)
                     elseif fuel_capacity > 0 then
                         local fuel_remaining = attachment:get_fuel_remaining()
-                        update_ui_text(21, cy + 4, fuel_remaining  .. "/" .. fuel_capacity, 100, 0, iff(fuel_remaining == 0, color_status_bad, color_status_ok), 0)
+                        update_ui_text(21, cy + 4, fuel_remaining  .. "/" .. fuel_capacity, loadout_w-26, 2, iff(fuel_remaining == 0, color_status_bad, color_status_ok), 0)
                     end
 
                     cy = cy + 17
