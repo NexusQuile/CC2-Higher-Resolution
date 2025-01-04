@@ -14,6 +14,8 @@ This mod includes the following mods:
 ## Higher Resolution Changes
 This Mod makes the following further changes to UI Enhancer
 - Control Screens
+   - added option to show estimated arrive time of vehicles to waypoints, options are none, last and all.
+   - aircraft now show an Estimated Flight Time (EFT) and Estimated Flight Range (EFR) when selected. These values asssume AI control flying a patrol route. Mannually flying faster will reduce EFT but incease EFR (slower will increase EFT but reduce EFR).
    - added option to show vehicle ID on waypoints of firendly vehicles - options are None, Last Waypoint or All Waypoints. Waypoint does not shown ID when it is a dock command on a carrier. This can be set per control screen. Default beahviour as per base game of showing None.
    - added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. Default beahviour as per base game of showing Last link only. 
    - added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint). This can be set per control screen. Default beahviour as per base game of showing the loadout only when the unit is Selected.
@@ -40,6 +42,7 @@ This Mod makes the following further changes to UI Enhancer
   - if more than one unit is docking/undocking/taxi-ing camera will now show unit with the greatest relative altitude (not the most forward on the carrier).
 
 ## Example Images
+### EFT and EFR
 
 ### Estimated Arrival Time
 ![estimated_arrival](https://github.com/user-attachments/assets/1947cefe-637c-465b-9efa-1072599297a8)
@@ -72,6 +75,8 @@ This Mod makes the following further changes to UI Enhancer
 
 
 ## Change Log
+v2.6 - added estimated Flight Time (EFT) and Estimated Flight Range (EFR) to vehicle info when unit is selected.
+
 v2.5 - add estimated arrival time for vehicles. Also added hold fire option added by recent base game update. 
 
 v2.4 - Hud's artifical horizon lines now display pitch angle
