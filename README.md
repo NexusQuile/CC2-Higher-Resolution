@@ -43,6 +43,7 @@ This Mod makes the following further changes to UI Enhancer
 
 ## Example Images
 ### EFT and EFR
+![20250102153207_1](https://github.com/user-attachments/assets/844ec50c-17a9-46d6-a6fa-2eec989406bb)
 
 ### Estimated Arrival Time
 ![estimated_arrival](https://github.com/user-attachments/assets/1947cefe-637c-465b-9efa-1072599297a8)
