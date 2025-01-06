@@ -52,6 +52,10 @@ This Mod makes the following further changes to UI Enhancer
 ![estimated_arrival](https://github.com/user-attachments/assets/1947cefe-637c-465b-9efa-1072599297a8)
 ![estimated_arrival2](https://github.com/user-attachments/assets/5e804f26-5283-4f66-84a9-5bdb51150c02)
 
+## Loadout
+![Loadout-colours](https://github.com/user-attachments/assets/b608eecc-798c-4a11-9813-db6de9ae7916)
+![Loadout-select](https://github.com/user-attachments/assets/dcd7bd24-341a-4d73-bb0e-6b296aa11411)
+
 ### HUD
 ![HUD_comparison](https://github.com/user-attachments/assets/69bdaa00-36ec-4211-8881-f59f26a41791)
 
