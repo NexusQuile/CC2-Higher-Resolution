@@ -2,7 +2,7 @@
 Mod expanding on UI Enhancer mod for Carrier Command 2 to increase the resolution of bridge screens and provide further UI improvements.
 This mod also includes Captain Controls by Mr Scoot and Albatross AWACS by Thumblegudget.
 
-Current Version: 2.6
+Current Version: 2.7
 
 ## Source Mods
 This mod includes the following mods:
@@ -14,12 +14,15 @@ This mod includes the following mods:
 ## Higher Resolution Changes
 This Mod makes the following further changes to UI Enhancer
 - Control Screens
-   - added option to show estimated arrive time of vehicles to waypoints, options are none, last and all.
+   - added option to show estimated arrive time of vehicles to waypoints, options are none, last and all. Default beahviour of showing on last waypoint only. 
    - aircraft now show an Estimated Flight Time (EFT) and Estimated Flight Range (EFR) when selected. These values asssume AI control flying a patrol route. Mannually flying faster will reduce EFT but incease EFR (slower will increase EFT but reduce EFR).
-   - added option to show vehicle ID on waypoints of firendly vehicles - options are None, Last Waypoint or All Waypoints. Waypoint does not shown ID when it is a dock command on a carrier. This can be set per control screen. Default beahviour as per base game of showing None.
-   - added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. Default beahviour as per base game of showing Last link only. 
-   - added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint). This can be set per control screen. Default beahviour as per base game of showing the loadout only when the unit is Selected.
-   - added option to show estimated arrive time of vehicles to waypoints, options are none, last and all.
+   - added option to show vehicle ID on waypoints of firendly vehicles - options are None, Last Waypoint or All Waypoints. Waypoint does not shown ID when it is a dock command on a carrier. This can be set per control screen. Default beahviour of showing on last waypoint only. 
+   - added option to show looping icon can all the waypoint links that are in the loop - not just the last. This can be set per control screen. Default beahviour as per base game of showing on last link only. 
+   - added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint). This can be set per control screen. Default beahviour of showing the loadout only when the unit is hovered.
+   - carrier select loadout screen now shows: cyan for selected unit, yellow for units that are re-arming/re-fueling; red now indicates that there is insufficient ammunition to re-arm; and launching/docking units are dark green.
+- Loadout Screens
+   - loadout screen now shows: cyan for selected unit, yellow for units that are re-arming/re-fueling; red now indicates that there is insufficient ammunition to re-arm; launching/docking units are dark green.
+   - select unit attachment screen now shows yellow for weapons that are re-arming and red for weapons that have no ammunition. Note: Due to modding limitations the last remaining munition may incorrectly show red if another selected weapon ammo is already out of stock.
 - HUD
    - artifical horizon lines now show the pitch angle (exludes horizon).
 - Navigation Screens
@@ -49,6 +52,10 @@ This Mod makes the following further changes to UI Enhancer
 ![estimated_arrival](https://github.com/user-attachments/assets/1947cefe-637c-465b-9efa-1072599297a8)
 ![estimated_arrival2](https://github.com/user-attachments/assets/5e804f26-5283-4f66-84a9-5bdb51150c02)
 
+## Loadout
+![Loadout-colours](https://github.com/user-attachments/assets/b608eecc-798c-4a11-9813-db6de9ae7916)
+![Loadout-select](https://github.com/user-attachments/assets/dcd7bd24-341a-4d73-bb0e-6b296aa11411)
+
 ### HUD
 ![HUD_comparison](https://github.com/user-attachments/assets/69bdaa00-36ec-4211-8881-f59f26a41791)
 
@@ -76,6 +83,8 @@ This Mod makes the following further changes to UI Enhancer
 
 
 ## Change Log
+v2.7 - update loadout screens to show yellow for re-arming/re-fueling munitions, launching units now dark-green, selected unit now cyan, red is reserved for units that are blocked from launching.
+
 v2.6 - added estimated Flight Time (EFT) and Estimated Flight Range (EFR) to vehicle info when unit is selected.
 
 v2.5 - add estimated arrival time for vehicles. Also added hold fire option added by recent base game update. 

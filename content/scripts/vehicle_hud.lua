@@ -381,7 +381,17 @@ function render_map_details(x, y, w, h, screen_w, screen_h, screen_vehicle, atta
     end
 
     local camera_size = 5000
-    update_set_screen_map_position_scale(camera_x, camera_y, camera_size)
+    
+    if screen_vehicle_def == e_game_object_type.chassis_carrier then
+        camera_size = (16*1024)
+    else
+        if get_is_vehicle_air(screen_vehicle_def) then
+            if screen_vehicle:get_linear_speed() > 150 then
+                camera_size = 10000
+            end
+        end
+    end
+	update_set_screen_map_position_scale(camera_x, camera_y, camera_size)
 
     local function world_to_screen(x, y)
         return get_screen_from_world(x, y, camera_x, camera_y, camera_size, screen_w, screen_h)
