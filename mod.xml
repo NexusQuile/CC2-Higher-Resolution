@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data name="Higher Resolution UI Enhancer-v2.6" author="Nexus_314" description="This mod combines the effects of Higher Resolution Navigation,  Higher Resolution Radar, UI Enhancer, Captain Controls, Albatross AWACS and other further improvements.
+<data name="Higher Resolution UI Enhancer-v2.7" author="Nexus_314" description="This mod combines the effects of Higher Resolution Navigation,  Higher Resolution Radar, UI Enhancer, Captain Controls, Albatross AWACS and other further improvements.
 
-Current Version: 2.6
+Current Version: 2.7
 
 https://github.com/NexusQuile/CC2-Higher-Resolution
 
@@ -33,7 +33,12 @@ This Mod makes the following further changes:
 [*]added option to show vehicle ID on waypoints of firendly vehicles. Waypoint does not shown ID when it is a dock command on a carrier.
 [*]added option to show looping icon on all the waypoint links that are in the loop - not just the last. This can be set per control screen. 
 [*]added option to show loadout of vehicles (land, air, Needlefish and Swordfish) in top right when hovering over the unit or also when hovering over any waypoint).
+[*]carrier select loadout screen now shows: cyan for selected unit, yellow for units that are re-arming/re-fueling; red now indicates that there is insufficient ammunition to re-arm; launching/docking units are dark green.
 [/list]
+
+[b]Loadout Screens[/b]
+[*]loadout screen now shows: cyan for selected unit, yellow for units that are re-arming/re-fueling; red now indicates that there is insufficient ammunition to re-arm; launching/docking units are dark green.
+[*]select unit attachment screen now shows yellow for weapons that are re-arming and red for weapons that have no ammunition. Due to modding limitations the last remaining munition may incorrectly show red if another selected weapon type is already out of stock.
 
 [b]Navigation Screens[/b]
 [list]
