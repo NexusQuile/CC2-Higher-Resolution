@@ -2617,7 +2617,9 @@ function imgui_carrier_docking_bays(ui, carrier_vehicle, item_spacing, column_sp
     local color_repair = color8(47, 116, 255, 255)
     local color_fuel = color8(119, 85, 161, 255)
     local color_ammo = color8(201, 171, 68, 255)
-    local color_selected = color8(255, 16, 16, 255)
+	local color_selected = color_status_ok
+	local color_reload = color8(100,100,0,255)
+	local color_launch = color_status_dark_green
 
     for i = 1, #bay_indices_rows do
         ui:begin_nav_row()
@@ -2647,18 +2649,22 @@ function imgui_carrier_docking_bays(ui, carrier_vehicle, item_spacing, column_sp
                 local attached_vehicle = update_get_map_vehicle_by_id(attached_vehicle_id)
 
                 if attached_vehicle:get() then
-                    vehicle_definition_name, region_vehicle_icon = get_chassis_data_by_definition_index(attached_vehicle:get_definition_index())
+                    
+					vehicle_definition_name, region_vehicle_icon = get_chassis_data_by_definition_index(attached_vehicle:get_definition_index())
                     repair_factor = attached_vehicle:get_repair_factor()
                     fuel_factor = attached_vehicle:get_fuel_factor()
                     ammo_factor = attached_vehicle:get_ammo_factor()
                     is_fuel_blocked = attached_vehicle:get_is_fuel_blocked()
                     is_ammo_blocked = attached_vehicle:get_is_ammo_blocked()
-                    vehicle_color = iff(is_fuel_blocked or is_ammo_blocked, color_grey_dark, iff(is_selected, color_selected, color_white))
-                    bay_color = color_white
+					
+                    vehicle_color = iff(is_fuel_blocked or is_ammo_blocked, color_grey_dark, iff(is_selected, color_selected, iff((fuel_factor < 0.99 or ammo_factor < 0.99) and attached_vehicle:get_dock_state() == 4, color_reload, color_white)))
+                    bay_color = iff(is_fuel_blocked or is_ammo_blocked, color_status_bad, iff(is_selected, color_selected, iff((fuel_factor < 0.99 or ammo_factor < 0.99) and attached_vehicle:get_dock_state() == 4, color_reload, color_white)))
+					--print(vehicle_definition_name, fuel_factor, fuel_factor, attached_vehicle:get_dock_state(), vehicle_color)
 
                     if attached_vehicle:get_dock_state() ~= 4 then
-                        if animation_tick % 20 > 10 then
-                            vehicle_color = color_highlight
+                        if ui.animation_timer % 30 > 10 then
+                            vehicle_color = color_launch
+							bay_color = color_launch
                         end
                     end
                 end
@@ -2673,7 +2679,7 @@ function imgui_carrier_docking_bays(ui, carrier_vehicle, item_spacing, column_sp
                 if region_vehicle_icon ~= nil then
                     update_ui_image(0, 0, region_vehicle_icon, vehicle_color, iff(j % 2 == 0, 3, 1))
 
-                    if ui.animation_timer % 30 > 15 then
+                    if ui.animation_timer % 30 > 10 then
                         if is_fuel_blocked and is_ammo_blocked then
                             update_ui_image(3, 6, atlas_icons.map_icon_low_fuel, color_status_bad, 0)
                             update_ui_image(9, 6, atlas_icons.map_icon_low_ammo, color_status_bad, 0)
