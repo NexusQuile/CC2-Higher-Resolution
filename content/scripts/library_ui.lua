@@ -2995,10 +2995,12 @@ function imgui_vehicle_chassis_loadout(ui, vehicle, selected_bay_index)
                     
                     local attachment_icon_region, attachment_16_icon_region = get_attachment_icons(attachment_definition_index)
                     local icon_w, icon_h = update_ui_get_image_size(attachment_icon_region)
-
+					
+					local color_loading_yellow = color8(255,255,0,255)
+					
                     if resupply_factor < 1.0 then
 						if stock_sufficient then
-							update_ui_image(x + (attachment_w - icon_w) / 2, y + (attachment_h - icon_h) / 2, attachment_icon_region, color8(255,255,0,255), 0)
+							update_ui_image(x + (attachment_w - icon_w) / 2, y + (attachment_h - icon_h) / 2, attachment_icon_region, iff(selected_bay_index ~= nil, color_loading_yellow, color_status_bad), 0)
 
 							update_ui_rectangle(x + 1, y + (attachment_h / 2) - 2, attachment_w - 2, 4, color_black)
 							update_ui_rectangle(x + 1, y + (attachment_h / 2) - 2, (attachment_w - 2) * resupply_factor, 4, color_white)
